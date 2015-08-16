@@ -78,12 +78,27 @@ end
 
 Any exception logged with automatically be sent to Raygun.
 
+Configure the Logger to use the Raygun backend.
+
+  ```elixir
+  Logger.add_backend(Raygun)
+  ```
+
 ### Any Elixir code
 
   # Start our Raygun application
   Raygun.start
 
-  # Report an exception.
+  # Report an exception the lazy way. Be sure that System.stacktrace will be
+  the correct stack trace!
+  ```elixir
+  try do
+    :foo = :bar
+  rescue
+    exception -> Raygun.report(exception)
+  end
+  ```
+
   ```elixir
   try do
     :foo = :bar
@@ -91,6 +106,19 @@ Any exception logged with automatically be sent to Raygun.
     exception ->
       stacktrace = System.stacktrace
       Raygun.report(stacktrace, exception)
+  end
+  ```  
+
+  Both forms allow some custom context to be passed as an optional final
+  parameters as a Map. This will appear as 'userCustomData' under the custom
+  tab in Raygun's web interface.
+
+  ```elixir
+  try do
+    :foo = :bar
+  rescue
+    exception ->
+      Raygun.report(System.stacktrace, exception, %{env: Mix.env})
   end
   ```
 

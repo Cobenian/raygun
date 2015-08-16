@@ -15,6 +15,9 @@ use Mix.Config
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]
 
+config :logger,
+  backends: [:console, Raygun]
+
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.
@@ -24,10 +27,7 @@ use Mix.Config
 #     import_config "#{Mix.env}.exs"
 
 config :raygun,
-    version: "0.0.1",
-    api_key: "<API KEY GOES HERE>",
-    app: "Elixir Raygun Client",
-    url: "https://www.cobenian.com",
+    api_key: "<YOUR API KEY GOES HERE>",
     tags: [:dev, :alpha],
     system_user: %{
       			identifier: "brweber2",
