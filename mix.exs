@@ -46,6 +46,8 @@ defmodule Raygun.Mixfile do
       {:httpotion, "~> 2.1.0"},
       {:timex, "~> 0.19.2"},
       {:plug, "~> 0.14"},
+      {:earmark, "~> 0.1", only: :dev},
+      {:ex_doc, "~> 0.7", only: :dev},
     ]
   end
 
