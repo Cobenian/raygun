@@ -4,9 +4,13 @@ defmodule Raygun.Mixfile do
   def project do
     [app: :raygun,
      version: "0.0.1",
+     name: "Raygun",
      elixir: "~> 1.0",
+     source_url: "https://github.com/cobenian/raygun",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: description,
+     package: package,
      deps: deps]
   end
 
@@ -15,6 +19,15 @@ defmodule Raygun.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [applications: [:logger, :httpotion, :plug]]
+  end
+
+  def description do
+    """
+    Send errors in your application to Raygun.
+
+    Raygun captures all your application errors in one place. It can be used as
+    a Plug, via Logger and/or programmatically.
+    """
   end
 
   # Dependencies can be Hex packages:
@@ -34,5 +47,12 @@ defmodule Raygun.Mixfile do
       {:timex, "~> 0.19.2"},
       {:plug, "~> 0.14"},
     ]
+  end
+
+  defp package do
+    [# These are the default files included in the package
+     contributors: ["Bryan Weber"],
+     licenses: ["Apache 2.0"],
+     links: %{"GitHub" => "https://github.com/cobenian/raygun"}]
   end
 end
