@@ -2,6 +2,31 @@ defmodule Raygun.Log.Error do
   defexception message: "default message"
 end
 
+defmodule Raygun.Plug do
+  defmacro __using__(_env) do
+    quote location: :keep do
+      @before_compile Raygun.Plug
+    end
+  end
+
+  defmacro __before_compile__(_env) do
+    quote location: :keep do
+      defoverridable [call: 2]
+
+      def call(conn, opts) do
+        try do
+          super(conn, opts)
+        rescue
+          exception ->
+            Raygun.capture(exception, env: Atom.to_string(Mix.env))
+
+            reraise exception, stacktrace
+        end
+      end
+    end
+  end
+end
+
 defmodule Raygun do
   use GenEvent
 
@@ -18,11 +43,6 @@ defmodule Raygun do
       capture msg
     else
       report_message(msg)
-      # try do
-      #   raise Raygun.Log.Error, message: msg
-      # rescue
-      #   e -> capture e
-      # end
     end
     {:ok, state}
   end
@@ -124,7 +144,6 @@ defmodule Raygun do
     os_version = "#{os_type} - #{os_flavor}"
     architecture = :erlang.system_info(:system_architecture) |> List.to_string
     sys_version = :erlang.system_info(:system_version) |> List.to_string
-    # opt_version = :erlang.system_info(:otp_release) |> List.to_string
     processor_count = :erlang.system_info(:logical_processors_online)
     memory_used = :erlang.memory(:total)
     %{environment: %{
@@ -227,90 +246,5 @@ defmodule Raygun do
   def file_from(file: file, line: _line) do
     file |> List.to_string
   end
-  #
-  # def handle_err do
-  #   try do
-  #     :foo + 1
-  #   rescue
-  #     e ->
-  #       s = System.stacktrace
-  #       IO.inspect err(s,e)
-  #   end
-  # end
-  #
-  # def handle_stacktrace do
-  #   try do
-  #     :foo + 1
-  #   rescue
-  #     e ->
-  #       s = System.stacktrace
-  #       IO.inspect stacktrace(s)
-  #   end
-  # end
-  #
-  # def handle_error do
-  #   try do
-  #     raise ArgumentError, message: "invalid argument foo"
-  #   rescue
-  #     e ->
-  #       stacktrace = System.stacktrace
-  #       IO.inspect e
-  #       IO.inspect stacktrace
-  #   end
-  #
-  #   try do
-  #     :foo + 1
-  #   rescue
-  #     e ->
-  #       stacktrace = System.stacktrace
-  #       IO.inspect e
-  #       IO.inspect stacktrace
-  #       IO.puts Exception.format_stacktrace(stacktrace)
-  #       IO.inspect Exception.message(e)
-  #       reraise e, stacktrace
-  #   end
-  # end
-  #
-  # def handle_throw do
-  #   try do
-  #     throw "ugh"
-  #   catch
-  #     x ->
-  #       IO.inspect x
-  #   end
-  # end
-  #
-  # def handle_exit do
-  #   try do
-  #     exit "good bye"
-  #   catch
-  #     :exit, s ->
-  #       IO.inspect s
-  #   end
-  # end
-  #
-  # def test do
-  #   try do
-  #     step_a
-  #   rescue
-  #     exception -> Raygun.capture(exception)
-  #   end
-  # end
-  #
-  # def test_with_custom do
-  #   try do
-  #     step_a
-  #   rescue
-  #     exception -> Raygun.capture(exception, %{intentional: "error"})
-  #   end
-  # end
-  #
-  # def step_a do
-  #   step_b
-  # end
-  #
-  # def step_b do
-  #   :foo = :bar
-  # end
 
 end

@@ -15,8 +15,9 @@ use Mix.Config
 #       format: "$date $time [$level] $metadata$message\n",
 #       metadata: [:user_id]
 
-config :logger,
-  backends: [:console, Raygun]
+# Sample configuration for sending logged errors to Raygun
+# config :logger,
+#   backends: [:console, Raygun]
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
@@ -26,14 +27,15 @@ config :logger,
 #
 #     import_config "#{Mix.env}.exs"
 
-config :raygun,
-    api_key: "<YOUR API KEY GOES HERE>",
-    tags: [:dev, :alpha],
-    system_user: %{
-      			identifier: "brweber2",
-      			isAnonymous: true,
-      			email: "brweber2@yahoo.com",
-      			fullName: "Bryan Weber",
-      			firstName: "Bryan",
-      			uuid: "brweber2-system-id"
-    		  }
+## Sampple Raygun config
+# config :raygun,
+#     api_key: "<YOUR API KEY GOES HERE>",
+#     tags: [:dev, :alpha],
+#     system_user: %{
+#       			identifier: "janedoe",
+#       			isAnonymous: true,
+#       			email: "janedoe@example.com",
+#       			fullName: "Jane Doe",
+#       			firstName: "Jane",
+#       			uuid: "7f01cd5e-8f9b-4607-82b7-5465dcba31f0"
+#     		  }
