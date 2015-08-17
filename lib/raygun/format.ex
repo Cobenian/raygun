@@ -155,7 +155,7 @@ defmodule Raygun.Format do
         httpMethod: conn.method,
         iPAddress: conn.remote_ip |> :inet.ntoa |> List.to_string,
         queryString: Plug.Conn.fetch_query_params(conn),
-        form: Plug.Parsers.call(conn, []).params,
+        form: %{}, # todo fix me!!! Plug.Parsers.call(conn, []).params,
         headers: Raygun.Util.format_headers(conn.req_headers),
         rawData: %{}
       }
