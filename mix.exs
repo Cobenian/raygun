@@ -4,7 +4,6 @@ defmodule Raygun.Mixfile do
   def project do
     [app: :raygun,
      version: "0.0.1",
-     name: "Raygun",
      elixir: "~> 1.0",
      source_url: "https://github.com/cobenian/raygun",
      build_embedded: Mix.env == :prod,
@@ -18,7 +17,7 @@ defmodule Raygun.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :httpotion, :plug]]
+    [applications: [:logger, :httpoison, :plug]]
   end
 
   def description do
@@ -42,8 +41,7 @@ defmodule Raygun.Mixfile do
   defp deps do
     [
       {:poison, "~> 1.4.0"},
-      {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
-      {:httpotion, "~> 2.1.0"},
+      {:httpoison, "~> 0.7.2"},
       {:timex, "~> 0.19.2"},
       {:plug, "~> 0.14"},
       {:earmark, "~> 0.1", only: :dev},

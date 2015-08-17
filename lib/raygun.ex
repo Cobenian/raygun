@@ -104,8 +104,14 @@ defmodule Raygun do
   end
 
   def send_report(json) do
-    response = HTTPotion.post @api_endpoint <> "/entries", [body: json, headers: ["Content-Type": "application/json; charset=utf-8", "Accept": "application/json", "User-Agent": "Elixir Client", "X-ApiKey": Application.get_env(:raygun, :api_key)]]
-    202 = response.status_code
+    headers = %{
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json",
+      "User-Agent": "Elixir Client",
+      "X-ApiKey": Application.get_env(:raygun, :api_key)
+    }
+    {:ok, response} = HTTPoison.post(@api_endpoint <> "/entries", json, headers)
+    %HTTPoison.Response{status_code: 202} = response
   end
 
   def custom(opts) do
