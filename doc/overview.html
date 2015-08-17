@@ -1,0 +1,137 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+        <title>Overview – raygun v0.0.5</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc">
+
+    <link rel="stylesheet" href="dist/app.css">
+  </head>
+  <body>
+
+    <div class="row row-offcanvas row-offcanvas-left">
+<section id="sidebar" class="col-xs-6 col-sm-3 sidebar-offcanvas">
+  <p class="pull-right visible-xs">
+  <button type="button" class="btn btn-default btn-sm" data-toggle="offcanvas">
+    <span class="glyphicon glyphicon-search"></span>
+  </button>
+  </p>
+
+  <h1 id="full_list_header">
+    
+      <a href="https://github.com/cobenian/raygun">raygun v0.0.5</a>
+    
+  </h1>
+
+  <h2 id="sub_list_header">
+    
+    <a href="overview.html">Overview</a>
+  </h2>
+
+  <div class="nav">
+    
+      <span><a id="modules_list" href="#full_list">Modules</a></span>
+    
+    
+      <span role="presentation" class="disabled">Exceptions</span>
+    
+    
+      <span role="presentation" class="disabled">Protocols</span>
+    
+  </div>
+
+  <div id="search">
+    <div class="col-xs-10">
+      <div class="input-group input-group-sm">
+        <label for="search_field" class="sr-only">Search</label>
+        <input type="text" id="search_field" class="form-control" placeholder="Search" autocomplete="off" autofocus="autofocus" results="0">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-xs-10 -->
+    <div class="col-xs-2" id="spinning">
+      <span></span>
+    </div><!-- /.col-xs-2 -->
+  </div><!-- /#search .row -->
+
+  <script src="dist/sidebar_items.js" defer></script>
+
+  <ul id="full_list">
+  </ul>
+
+  <div id="no_results"></div>
+</section><!--/.sidebar-offcanvas -->
+<section id="content" class="col-xs-12 col-sm-9">
+
+
+      <div class="breadcrumbs">
+        <button type="button" class="btn btn-default btn-sm" data-toggle="offcanvas">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </button>
+        
+      </div>
+
+      <h1>raygun v0.0.5</h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#modules_summary">Modules</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="modules_summary" class="details_list">
+          <h1>Modules summary</h1>
+          <table class="summary">
+            <tr>
+  <td class="summary_signature"><a href="Raygun.html">Raygun</a></td>
+  <td class="summary_synopsis"><p>Send errors to Raygun. Errors can be captured in three different ways</p>
+</td>
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Raygun.Format.html">Raygun.Format</a></td>
+  <td class="summary_synopsis"><p>This module builds payloads of error messages that Raygun will understand.
+These functions return maps of data which will be encoding as JSON prior
+to submission to Raygun</p>
+</td>
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Raygun.Logger.html">Raygun.Logger</a></td>
+  <td class="summary_synopsis"><p>This provides a backend for Logger that will send any messages logged at
+:error to Raygun</p>
+</td>
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Raygun.Plug.html">Raygun.Plug</a></td>
+  <td class="summary_synopsis"><p>This plug is designed to wrap calls in a router (commonly in Phoenix) so that
+any exceptions will be sent to Raygun</p>
+</td>
+</tr>
+<tr>
+  <td class="summary_signature"><a href="Raygun.Util.html">Raygun.Util</a></td>
+  <td class="summary_synopsis"><p>This module contains utility functions for formatting particular pieces
+of stacktrace data into strings</p>
+</td>
+</tr>
+
+          </table>
+        </section>
+      
+
+      
+
+      
+      </section> <!--/content -->
+</div><!--/row -->
+
+    <script src="dist/app.js"></script>
+  </body>
+</html>
+
