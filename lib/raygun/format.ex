@@ -156,7 +156,7 @@ defmodule Raygun.Format do
         iPAddress: conn.remote_ip,
         queryString: Plug.Conn.fetch_query_params(conn),
         form: Plug.Parsers.call(conn, []).params,
-        headers: conn.req_headers,
+        headers: Raygun.Util.format_headers(conn.req_headers),
         rawData: %{}
       }
     }

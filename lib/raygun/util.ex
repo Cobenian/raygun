@@ -6,6 +6,15 @@ defmodule Raygun.Util do
     """
 
     @doc """
+    Headers are a list of Tuples. Convert them to a keyword list.
+    """
+    def format_headers(headers) do
+      for {name, value} <- headers do
+        {String.to_atom(name), value}
+      end
+    end
+
+    @doc """
     Given a function name (atom) and arity (number), return a string in the form
     func_name/2.
     """

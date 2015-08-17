@@ -9,7 +9,7 @@ sidebarNodes = {
 },{"id": "Raygun.Plug",
 "docs": ["__before_compile__/1"]
 },{"id": "Raygun.Util",
-"docs": ["file_from/1","function_and_arity/2","line_from/1","mod_for/1"]
+"docs": ["file_from/1","format_headers/1","function_and_arity/2","line_from/1","mod_for/1"]
 
   }]
 
