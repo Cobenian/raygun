@@ -18,7 +18,8 @@ defmodule Raygun.Plug do
           super(conn, opts)
         rescue
           exception ->
-            Raygun.capture(exception, env: Atom.to_string(Mix.env))
+            stacktrace = System.stacktrace
+            Raygun.report(stacktrace, exception, env: Atom.to_string(Mix.env))
 
             reraise exception, stacktrace
         end
