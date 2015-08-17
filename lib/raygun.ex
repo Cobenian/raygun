@@ -118,7 +118,7 @@ defmodule Raygun do
   def custom(opts) do
     %{
       tags: Application.get_env(:raygun,:tags),
-		  userCustomData: opts
+		  userCustomData: Enum.into(opts, %{})
     }
   end
 
