@@ -1,7 +1,7 @@
 Raygun
 ======
 
-THIS IS AN **ALPHA** RELEASE. IT IS NOT FUNCTIONAL YET!
+THIS IS AN **BETA** RELEASE. IT IS FUNCTIONAL, BUT MAY STILL HAVE BUGS!
 
 ## Install
 
@@ -13,11 +13,11 @@ def deps do
 end
 ```
 
-Add Raygun to the list of applications.
+Add Raygun and httpoison to the list of applications.
 
 ```elixir
 def application do
-  [applications: [:logger, :raygun]
+  [applications: [:logger, :raygun, :httpoison]
 end
 ```
 
