@@ -9,9 +9,7 @@ defmodule Raygun.Util do
     Headers are a list of Tuples. Convert them to a keyword list.
     """
     def format_headers(headers) do
-      for {name, value} <- headers do
-        {String.to_atom(name), value}
-      end
+      headers |> Keyword.new( fn {x,y} -> {String.to_atom(x), y} end )
     end
 
     @doc """
