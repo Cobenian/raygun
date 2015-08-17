@@ -153,7 +153,7 @@ defmodule Raygun.Format do
         hostName: conn.host,
         url: "#{Atom.to_string(conn.scheme)}://#{conn.host}:#{conn.port}#{conn.request_path}",
         httpMethod: conn.method,
-        iPAddress: conn.remote_ip,
+        iPAddress: conn.remote_ip |> :inet.ntoa |> List.to_string,
         queryString: Plug.Conn.fetch_query_params(conn),
         form: Plug.Parsers.call(conn, []).params,
         headers: Raygun.Util.format_headers(conn.req_headers),
