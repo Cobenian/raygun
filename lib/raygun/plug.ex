@@ -14,9 +14,8 @@ defmodule Raygun.Plug do
   Whenever an error occurs, capture the stacktrace and exception to send to Raygun.
   """
   defmacro __before_compile__(env) do
-        IO.puts "env is:"
-        IO.inspect env
-
+        # IO.puts "env is:"
+        # IO.inspect env
     quote location: :keep do
       defoverridable [call: 2]
 
