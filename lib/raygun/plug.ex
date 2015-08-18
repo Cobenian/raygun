@@ -4,8 +4,9 @@ defmodule Raygun.Plug do
   any exceptions will be sent to Raygun.
   """
 
-  defmacro __using__(_env) do
+  defmacro __using__(env) do
     quote location: :keep do
+      IO.puts "env is #{env}"
       @before_compile Raygun.Plug
     end
   end
@@ -18,13 +19,15 @@ defmodule Raygun.Plug do
       defoverridable [call: 2]
 
       def call(conn, opts) do
+        IO.puts "opts are:"
+        IO.inspect opts
         try do
           super(conn, opts)
         rescue
           exception ->
             stacktrace = System.stacktrace
             IO.inspect opts
-            if opts.user do
+            if Keyword.has_key?(opts, :user) do
               user = opts.user.(conn)
             else
               user = nil
