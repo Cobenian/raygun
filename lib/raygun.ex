@@ -50,6 +50,7 @@ defmodule Raygun do
   def report_plug(conn, stacktrace, exception, opts \\ %{}) do
     conn
     |> Raygun.Format.conn_payload(stacktrace, exception, opts)
+    |> IO.inspect
     |> Poison.encode!
     |> send_report
   end
@@ -64,6 +65,7 @@ defmodule Raygun do
       "User-Agent": "Elixir Client",
       "X-ApiKey": Application.get_env(:raygun, :api_key)
     }
+    # todo wrap these lines so they don't cause a failure to propagate
     {:ok, response} = HTTPoison.post(@api_endpoint <> "/entries", json, headers)
     %HTTPoison.Response{status_code: 202} = response
   end
