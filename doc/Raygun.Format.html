@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-        <title>Raygun.Format – raygun v0.0.30</title>
+        <title>Raygun.Format – raygun v0.1.0</title>
       
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc">
@@ -24,7 +24,7 @@
 
   <h1 id="full_list_header">
     
-      <a href="https://github.com/cobenian/raygun">raygun v0.0.30</a>
+      <a href="https://github.com/cobenian/raygun">raygun v0.1.0</a>
     
   </h1>
 
@@ -74,7 +74,7 @@
         <button type="button" class="btn btn-default btn-sm" data-toggle="offcanvas">
           <span class="glyphicon glyphicon-menu-hamburger"></span>
         </button>
-        raygun v0.0.30 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Raygun.html#content">Raygun</a> &rarr; <a href="Raygun.Format.html#content">Format</a>
+        raygun v0.1.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Raygun.html#content">Raygun</a> &rarr; <a href="Raygun.Format.html#content">Format</a>
       </div>
 
       <h1>
@@ -176,14 +176,9 @@ corresponding stacktrace</p>
 </td>
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#user/0">user()</a></td>
-  <td class="summary_synopsis"><p>Returns the system user from the configuration if one is specified</p>
-</td>
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#user/2">user(conn, opts)</a></td>
-  <td class="summary_synopsis"><p>Get the logged in user from the Plug Conn. This function will most likely be
-overridden by a function provided by the clients</p>
+  <td class="summary_signature"><a href="#user/1">user(opts)</a></td>
+  <td class="summary_synopsis"><p>Get the logged in user from the opts if one is provided.
+If not, it gets the system user if one is specified</p>
 </td>
 </tr>
 
@@ -249,7 +244,7 @@ user custom data can be provided per error.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L129" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L116" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -267,7 +262,7 @@ user custom data can be provided per error.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L99" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L86" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -285,7 +280,7 @@ user custom data can be provided per error.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L182" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L169" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -321,7 +316,7 @@ user custom data can be provided per error.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L147" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L134" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -339,7 +334,7 @@ user custom data can be provided per error.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L155" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L142" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -357,7 +352,7 @@ user custom data can be provided per error.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L172" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L159" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -375,7 +370,7 @@ user custom data can be provided per error.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L197" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L184" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -394,7 +389,7 @@ that Raygun will understand.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L205" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L192" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -417,40 +412,22 @@ corresponding stacktrace.</p>
   
 </section>
 <section class="detail">
-  <div class="detail_header" id="user/0">
-    <span class="signature"><strong>user()</strong></span>
+  <div class="detail_header" id="user/1">
+    <span class="signature"><strong>user(opts)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
-      <a href="#user/0" class="detail_link" title="Link to this function">#</a>
+      <a href="#user/1" class="detail_link" title="Link to this function">#</a>
       <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
     </div>
   </div>
   
   <section class="docstring">
-    <p>Returns the system user from the configuration if one is specified.</p>
+    <p>Get the logged in user from the opts if one is provided.
+If not, it gets the system user if one is specified.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L72" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="user/2">
-    <span class="signature"><strong>user(conn, opts)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#user/2" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
-  </div>
-  
-  <section class="docstring">
-    <p>Get the logged in user from the Plug Conn. This function will most likely be
-overridden by a function provided by the clients.</p>
-
-  </section>
-  
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L80" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/format.ex#L73" class="view_source">Source</a>
   
 </section>
 
