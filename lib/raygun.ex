@@ -69,8 +69,11 @@ defmodule Raygun do
       "User-Agent": "Elixir Client",
       "X-ApiKey": Application.get_env(:raygun, :api_key)
     }
-    {:ok, response} = HTTPoison.post(@api_endpoint <> "/entries", json, headers)
-    %HTTPoison.Response{status_code: 202} = response
+    # if we fail to send an error to Raygun that is ok for now... 
+    spawn fn ->
+      {:ok, response} = HTTPoison.post(@api_endpoint <> "/entries", json, headers)
+      %HTTPoison.Response{status_code: 202} = response
+    end
   end
 
 end

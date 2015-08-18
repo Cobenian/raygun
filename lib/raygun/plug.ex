@@ -1,22 +1,47 @@
+defmodule Raygun.Plug.State do
+  @moduledoc """
+  This wraps an agent used at compile time to save a function passed in by the
+  router so it can be used before compiling the remaining macros.
+  """
+
+  def start_link do
+    Agent.start_link(fn -> nil end, name: __MODULE__)
+  end
+
+  def set(value) do
+    Agent.update(__MODULE__, fn (_x) -> value end)
+  end
+
+  def get do
+    Agent.get(__MODULE__, fn(x) -> x end)
+  end
+
+end
+
 defmodule Raygun.Plug do
   @moduledoc """
   This plug is designed to wrap calls in a router (commonly in Phoenix) so that
   any exceptions will be sent to Raygun.
   """
 
-  @user_fn Agent.start_link(fn -> nil end)
-
-  defmacro __using__(env) do
-    Agent.update(@user_fn, fn(current) -> env.user end)
+  defmacro __using__(opts) do
+    Raygun.Plug.State.start_link
+    Raygun.Plug.State.set(opts)
     quote location: :keep do
       @before_compile Raygun.Plug
+    end
+  end
+
+  def get_user(conn, env) do
+    if env do
+      Keyword.get(env, :user).(conn)
     end
   end
 
   @doc """
   Whenever an error occurs, capture the stacktrace and exception to send to Raygun.
   """
-  defmacro __before_compile__(_env) do
+  defmacro __before_compile__(env) do
     quote location: :keep do
       defoverridable [call: 2]
 
@@ -26,10 +51,9 @@ defmodule Raygun.Plug do
         rescue
           exception ->
             stacktrace = System.stacktrace
-            user = Agent.get(@user_fn, fn (val) -> val end)
-            user = if user, do: user.(conn)
-            IO.puts "user is #{user}"
-            Raygun.report_plug(conn, stacktrace, exception, env: Atom.to_string(Mix.env), user: user)
+            Raygun.report_plug(conn, stacktrace, exception,
+                              env: Atom.to_string(Mix.env),
+                              user: Raygun.Plug.get_user(conn, unquote(Raygun.Plug.State.get)))
             reraise exception, stacktrace
         end
       end

@@ -15,7 +15,7 @@ defmodule Raygun.Format do
       details:
         details
         |> Dict.merge( environment )
-        |> Dict.merge( user )
+        |> Dict.merge( user(opts) )
         |> Dict.merge( custom(opts) )
         |> Dict.merge( %{error: %{ message: msg } } )
     }
@@ -32,7 +32,7 @@ defmodule Raygun.Format do
         details
         |> Dict.merge( err(stacktrace, exception) )
         |> Dict.merge( environment )
-        |> Dict.merge( user )
+        |> Dict.merge( user(opts) )
         |> Dict.merge( custom(opts) )
     }
   end
@@ -50,7 +50,7 @@ defmodule Raygun.Format do
         |> Dict.merge( environment )
         |> Dict.merge( request(conn) )
         |> Dict.merge( response(conn) )
-        |> Dict.merge( user(conn, opts) )
+        |> Dict.merge( user(opts) )
         |> Dict.merge( custom(opts) )
     }
   end
@@ -67,29 +67,16 @@ defmodule Raygun.Format do
   end
 
   @doc """
-  Returns the system user from the configuration if one is specified.
+  Get the logged in user from the opts if one is provided.
+  If not, it gets the system user if one is specified.
   """
-  def user do
-    %{user: Application.get_env(:raygun, :system_user)}
-  end
-
-  @doc """
-  Get the logged in user from the Plug Conn. This function will most likely be
-  overridden by a function provided by the clients.
-  """
-  def user(conn, opts) do
-    if Keyword.has_key?(opts, :user) and opts.user do
-      opts.user.(conn)
+  def user(opts) do
+    if Keyword.has_key?(opts, :user) and Keyword.get(opts, :user) do
+      %{user: Keyword.get(opts,:user)}
     else
-      %{user: %{
-    			identifier: "",
-    			isAnonymous: true,
-    			email: "",
-    			fullName: "",
-    			firstName: "",
-    			uuid: ""
-  		  }
-      }
+      if Application.get_env(:raygun, :system_user) do
+        %{user: Application.get_env(:raygun, :system_user)}
+      end
     end
   end
 

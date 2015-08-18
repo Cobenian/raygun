@@ -1,7 +1,8 @@
 Raygun
 ======
 
-THIS IS AN **BETA** RELEASE. IT IS FUNCTIONAL, BUT MAY STILL HAVE BUGS!
+Capture and send errors in your Elixir applications to Raygun for centralized
+bug reporting.
 
 ## Install
 
@@ -57,10 +58,26 @@ defmodule YourApp.Router do
 end
 ```
 
-We are still considering a few options for detecting the currently logged in
-user. Since nearly every application handles it differently we will most
-likely provide a configuration option that takes a callback. The function you
-provide will be passed the Plug Conn state.
+You can also provide a function that takes a Plug Conn and returns a map with
+information about the logged in user.
+
+```elixir
+defmodule YourApp.Router do
+  use Phoenix.Router
+  use Raygun.Plug, fn(conn) ->
+    %{
+      identifier: "<user id>",
+      isAnonymous: false, # false if logged in, true if not logged in
+      email: "email@example.com",
+      fullName: "John Doe",
+      firstName: "John",
+      uuid: "<uuid>"
+    }
+  end
+
+  # ...
+end
+```
 
 ### Via the Logger
 
@@ -112,7 +129,7 @@ the correct stack trace!
 try do
   :foo = :bar
 rescue
-  exception -> Raygun.report(exception)
+  exception -> Raygun.report_exception(exception)
 end
 ```
 
@@ -124,7 +141,7 @@ try do
 rescue
   exception ->
     stacktrace = System.stacktrace
-    Raygun.report(stacktrace, exception)
+    Raygun.report_stacktrace(stacktrace, exception)
 end
 ```  
 
@@ -137,7 +154,7 @@ try do
   :foo = :bar
 rescue
   exception ->
-    Raygun.report(System.stacktrace, exception, %{env: Mix.env})
+    Raygun.report_stacktrace(System.stacktrace, exception, %{env: Mix.env})
 end
 ```
 
