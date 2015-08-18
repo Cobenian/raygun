@@ -43,7 +43,7 @@ config :raygun,
 ## Usage
 
 There are three different ways you can use Raygun. All three ways may be combined,
-but you _may_ send the same message multiple times if you do that.
+but you _might_ send the same message multiple times if you do that.
 
 ### By Plug in Phoenix
 
@@ -64,7 +64,7 @@ information about the logged in user.
 ```elixir
 defmodule YourApp.Router do
   use Phoenix.Router
-  use Raygun.Plug, fn(conn) ->
+  use Raygun.Plug, user: fn(conn) ->
     %{
       identifier: "<user id>",
       isAnonymous: false, # false if logged in, true if not logged in
