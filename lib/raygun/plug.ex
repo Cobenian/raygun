@@ -7,7 +7,9 @@ defmodule Raygun.Plug do
   @user_fn nil
 
   defmacro __using__(env) do
-    Module.put_attribute __MODULE__, :user_fn, env.user
+    Module.put_attribute( __MODULE__, :user_fn, (quote location: :keep do
+      env.user
+    end))
     quote location: :keep do
       @before_compile Raygun.Plug
     end
