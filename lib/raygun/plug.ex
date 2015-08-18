@@ -14,22 +14,23 @@ defmodule Raygun.Plug do
   Whenever an error occurs, capture the stacktrace and exception to send to Raygun.
   """
   defmacro __before_compile__(env) do
+        IO.puts "env is:"
+        IO.inspect env
+
     quote location: :keep do
       defoverridable [call: 2]
 
       def call(conn, opts) do
         IO.puts "opts are:"
         IO.inspect opts
-        IO.puts "env is:"
-        IO.inspect env
         try do
           super(conn, opts)
         rescue
           exception ->
             stacktrace = System.stacktrace
             IO.inspect opts
-            if Keyword.has_key?(env, :user) do
-              user = env.user.(conn)
+            if Keyword.has_key?(opts, :user) do
+              user = opts.user.(conn)
             else
               user = nil
             end
