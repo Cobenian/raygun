@@ -23,7 +23,7 @@ defmodule Raygun.Plug do
         rescue
           exception ->
             stacktrace = System.stacktrace
-            IO.insepct opts
+            IO.inspect opts
             if opts.user do
               user = opts.user.(conn)
             else
