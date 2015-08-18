@@ -78,7 +78,7 @@ defmodule Raygun.Format do
   overridden by a function provided by the clients.
   """
   def user(conn, opts) do
-    if Keyword.has_key?(opts, :user) do
+    if Keyword.has_key?(opts, :user) and opts.user do
       opts.user.(conn)
     else
       %{user: %{
