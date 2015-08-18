@@ -4,12 +4,10 @@ defmodule Raygun.Plug do
   any exceptions will be sent to Raygun.
   """
 
-  @user_fn nil
+  @user_fn Agent.start_link(fn -> nil end, name: __MODULE__)
 
   defmacro __using__(env) do
-    Module.put_attribute( __MODULE__, :user_fn, (quote location: :keep do
-      env.user
-    end))
+    Agent.update(__MODULE__, fn(current) -> env.user end)
     quote location: :keep do
       @before_compile Raygun.Plug
     end
@@ -28,7 +26,8 @@ defmodule Raygun.Plug do
         rescue
           exception ->
             stacktrace = System.stacktrace
-            user = if @user_fn, do: unquote(@user_fn).(conn)
+            user = Agent.get(__MODULE__, fn (val) -> val end)
+            user = if user, do: user.(conn)
             IO.puts "user is #{user}"
             Raygun.report_plug(conn, stacktrace, exception, env: Atom.to_string(Mix.env), user: user)
             reraise exception, stacktrace
