@@ -7,7 +7,7 @@ defmodule Raygun.Plug do
   @user_fn nil
 
   defmacro __using__(env) do
-    @user_fn = unquote env.user
+    @user_fn = env
     quote location: :keep do
       @before_compile Raygun.Plug
     end
@@ -26,7 +26,7 @@ defmodule Raygun.Plug do
         rescue
           exception ->
             stacktrace = System.stacktrace
-            user = if @user_fn, do: @user_fn.(conn)
+            user = if @user_fn, do: unquote(@user_fn).user.(conn)
             IO.puts "user is #{user}"
             Raygun.report_plug(conn, stacktrace, exception, env: Atom.to_string(Mix.env), user: user)
             reraise exception, stacktrace
