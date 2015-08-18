@@ -15,7 +15,7 @@ defmodule Raygun.Plug do
   """
   defmacro __before_compile__(env) do
     IO.puts "env is:"
-    IO.inspect env
+    IO.inspect unquote(env)
     quote location: :keep do
       defoverridable [call: 2]
 
