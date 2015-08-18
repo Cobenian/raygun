@@ -5,8 +5,9 @@ defmodule Raygun.Plug do
   """
 
   defmacro __using__(env) do
+    IO.puts "env is:"
+    IO.inspect env
     quote location: :keep do
-      IO.puts "env is #{env}"
       @before_compile Raygun.Plug
     end
   end

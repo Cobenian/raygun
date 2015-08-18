@@ -59,13 +59,16 @@ defmodule Raygun do
   Send an error to Raygun.
   """
   def send_report(json) do
+    spawn fn -> send_report_to_raygun(json) end
+  end
+
+  def send_report_to_raygun(json) do
     headers = %{
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
       "User-Agent": "Elixir Client",
       "X-ApiKey": Application.get_env(:raygun, :api_key)
     }
-    # todo wrap these lines so they don't cause a failure to propagate
     {:ok, response} = HTTPoison.post(@api_endpoint <> "/entries", json, headers)
     %HTTPoison.Response{status_code: 202} = response
   end
