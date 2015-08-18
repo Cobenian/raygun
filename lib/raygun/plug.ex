@@ -23,8 +23,14 @@ defmodule Raygun.Plug do
         rescue
           exception ->
             stacktrace = System.stacktrace
-            IO.inspect stacktrace
-            Raygun.report_plug(conn, stacktrace, exception, env: Atom.to_string(Mix.env))
+            IO.insepct opts
+            if opts.user do
+              user = opts.user.(conn)
+            else
+              user = nil
+            end
+            IO.puts "user is #{user}"
+            Raygun.report_plug(conn, stacktrace, exception, env: Atom.to_string(Mix.env), user: user)
             reraise exception, stacktrace
         end
       end
