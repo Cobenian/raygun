@@ -50,7 +50,7 @@ defmodule Raygun.Format do
         |> Dict.merge( environment )
         |> Dict.merge( request(conn) )
         |> Dict.merge( response(conn) )
-        |> Dict.merge( user(conn) )
+        |> Dict.merge( user(conn, opts) )
         |> Dict.merge( custom(opts) )
     }
   end
@@ -69,7 +69,7 @@ defmodule Raygun.Format do
   @doc """
   Returns the system user from the configuration if one is specified.
   """
-  def user() do
+  def user do
     %{user: Application.get_env(:raygun, :system_user)}
   end
 
@@ -77,16 +77,20 @@ defmodule Raygun.Format do
   Get the logged in user from the Plug Conn. This function will most likely be
   overridden by a function provided by the clients.
   """
-  def user(_conn) do
-    %{user: %{
-  			identifier: "",
-  			isAnonymous: true,
-  			email: "",
-  			fullName: "",
-  			firstName: "",
-  			uuid: ""
-		  }
-    }
+  def user(conn, opts) do
+    if Keyword.has_key?(opts, :user) do
+      opts.user.(conn)
+    else
+      %{user: %{
+    			identifier: "",
+    			isAnonymous: true,
+    			email: "",
+    			fullName: "",
+    			firstName: "",
+    			uuid: ""
+  		  }
+      }
+    end
   end
 
   @doc """
