@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-        <title>Raygun.Util – raygun v0.1.0</title>
+        <title>Raygun.Util – raygun v0.1.1</title>
       
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc">
@@ -24,7 +24,7 @@
 
   <h1 id="full_list_header">
     
-      <a href="https://github.com/cobenian/raygun">raygun v0.1.0</a>
+      <a href="https://github.com/cobenian/raygun">raygun v0.1.1</a>
     
   </h1>
 
@@ -74,7 +74,7 @@
         <button type="button" class="btn btn-default btn-sm" data-toggle="offcanvas">
           <span class="glyphicon glyphicon-menu-hamburger"></span>
         </button>
-        raygun v0.1.0 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Raygun.html#content">Raygun</a> &rarr; <a href="Raygun.Util.html#content">Util</a>
+        raygun v0.1.1 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Raygun.html#content">Raygun</a> &rarr; <a href="Raygun.Util.html#content">Util</a>
       </div>
 
       <h1>
@@ -124,6 +124,17 @@ of stacktrace data into strings.</p>
   <td class="summary_signature"><a href="#function_and_arity/2">function_and_arity(function, arity)</a></td>
   <td class="summary_synopsis"><p>Given a function name (atom) and arity (number), return a string in the form
 func_name/2</p>
+</td>
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get_env/3">get_env(app, key, default \\ nil)</a></td>
+  <td class="summary_synopsis"><p>So in a release this seems to return {:key, value} instead of {:ok, value}
+for some reason. So we accept that form as well</p>
+</td>
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#get_key/3">get_key(app, key, default \\ nil)</a></td>
+  <td class="summary_synopsis"><p>Like Application.get_env only for get_key function</p>
 </td>
 </tr>
 <tr>
@@ -199,6 +210,43 @@ func_name/2.</p>
   </section>
   
     <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L21" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get_env/3">
+    <span class="signature"><strong>get_env(app, key, default \\ nil)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get_env/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>So in a release this seems to return {:key, value} instead of {:ok, value}
+for some reason. So we accept that form as well….</p>
+
+  </section>
+  
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L64" class="view_source">Source</a>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="get_key/3">
+    <span class="signature"><strong>get_key(app, key, default \\ nil)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#get_key/3" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+  <section class="docstring">
+    <p>Like Application.get_env only for get_key function.</p>
+
+  </section>
+  
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L52" class="view_source">Source</a>
   
 </section>
 <section class="detail">

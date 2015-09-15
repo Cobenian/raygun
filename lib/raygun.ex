@@ -14,7 +14,7 @@ defmodule Raygun do
   Reports a string message. This function is used by the Raygun.Logger but it
   can also be used to report any string message.
   """
-  def report_message(msg, opts \\ %{}) do
+  def report_message(msg, opts \\ []) do
     msg
     |> Raygun.Format.message_payload(opts)
     |> Poison.encode!
@@ -27,7 +27,7 @@ defmodule Raygun do
   ensure that the most recent stacktrace is the one associated with the
   exception.
   """
-  def report_exception(exception, opts \\ %{}) do
+  def report_exception(exception, opts \\ []) do
     System.stacktrace
     |> report_stacktrace(exception, opts)
   end
@@ -35,7 +35,7 @@ defmodule Raygun do
   @doc """
   Reports an exception and its corresponding stacktrace to Raygun.
   """
-  def report_stacktrace(stacktrace, exception, opts \\ %{}) do
+  def report_stacktrace(stacktrace, exception, opts \\ []) do
     stacktrace
     |> Raygun.Format.stacktrace_payload(exception, opts)
     |> Poison.encode!
@@ -47,10 +47,9 @@ defmodule Raygun do
   this captures some additional information about the environment in which
   the exception occurred by retrieving some state from the Plug Conn.
   """
-  def report_plug(conn, stacktrace, exception, opts \\ %{}) do
+  def report_plug(conn, stacktrace, exception, opts \\ []) do
     conn
     |> Raygun.Format.conn_payload(stacktrace, exception, opts)
-    |> IO.inspect
     |> Poison.encode!
     |> send_report
   end
@@ -67,9 +66,9 @@ defmodule Raygun do
       "Content-Type": "application/json; charset=utf-8",
       "Accept": "application/json",
       "User-Agent": "Elixir Client",
-      "X-ApiKey": Application.get_env(:raygun, :api_key)
+      "X-ApiKey": Raygun.Util.get_env(:raygun, :api_key)
     }
-    # if we fail to send an error to Raygun that is ok for now... 
+    # if we fail to send an error to Raygun that is ok for now...
     spawn fn ->
       {:ok, response} = HTTPoison.post(@api_endpoint <> "/entries", json, headers)
       %HTTPoison.Response{status_code: 202} = response

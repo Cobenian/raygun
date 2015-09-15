@@ -14,11 +14,11 @@ def deps do
 end
 ```
 
-Add Raygun and httpoison to the list of applications.
+Add Raygun, httpoison and tzdata to the list of applications.
 
 ```elixir
 def application do
-  [applications: [:logger, :raygun, :httpoison]
+  [applications: [:logger, :raygun, :httpoison, :tzdata]
 end
 ```
 
@@ -31,13 +31,20 @@ config :raygun,
     api_key: "<INSERT YOUR API KEY HERE>"
 ```
 
-You can *OPTIONALLY* add tags as well. These tags will be sent with every
-reported error.
+You can *OPTIONALLY* add other configuration options as well. They will be sent
+with every error.
+* tags: list of metadata strings
+* url: a reference URL
+* client_name: the name of the application as you want it to appear in Raygun
+* client_version: the version of the application as you want it to appear in Raygun
 
 ```elixir
 config :raygun,
     api_key: "<INSERT YOUR API KEY HERE>",
-    tags: ["tag1", "tag2"]
+    tags: ["tag1", "tag2"],
+    url: "http://docs.myapp.example.com",
+    client_name: "MyApp",
+    client_version: "2.3.4"
 ```
 
 ## Usage
@@ -45,7 +52,7 @@ config :raygun,
 There are three different ways you can use Raygun. All three ways may be combined,
 but you _might_ send the same message multiple times if you do that.
 
-### By Plug in Phoenix
+### Via Plug in Phoenix
 
 Add the plug to your router:
 
@@ -86,14 +93,14 @@ Any error logged with automatically be sent to Raygun.
 Configure the Logger to use the Raygun backend. You can do this programmatically
 
   ```elixir
-  Logger.add_backend(Raygun)
+  Logger.add_backend(Raygun.Logger)
   ```
 
 or via configuration by adding Raygun as a backend in config/config.exs:
 
   ```elixir
   config :logger,
-    backends: [:console, Raygun]
+    backends: [:console, Raygun.Logger]
   ```
 
 Any messages logged at :error level will be automatically sent to Raygun.
@@ -120,6 +127,12 @@ in mix.exs)
 
 ```elixir
 Raygun.start
+```
+
+Send a string message to Raygun:
+
+```elixir
+Raygun.report_message "Oh noes."
 ```
 
 Report an exception programmatically. Be sure that System.stacktrace will be

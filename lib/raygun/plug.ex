@@ -4,6 +4,8 @@ defmodule Raygun.Plug.State do
   router so it can be used before compiling the remaining macros.
   """
 
+  @mix_env Atom.to_string(Mix.env)
+
   def start_link do
     Agent.start_link(fn -> nil end, name: __MODULE__)
   end
@@ -41,7 +43,7 @@ defmodule Raygun.Plug do
   @doc """
   Whenever an error occurs, capture the stacktrace and exception to send to Raygun.
   """
-  defmacro __before_compile__(env) do
+  defmacro __before_compile__(_env) do
     quote location: :keep do
       defoverridable [call: 2]
 
@@ -52,7 +54,7 @@ defmodule Raygun.Plug do
           exception ->
             stacktrace = System.stacktrace
             Raygun.report_plug(conn, stacktrace, exception,
-                              env: Atom.to_string(Mix.env),
+                              vsn: Raygun.Util.get_key(:raygun, :vsn) |> List.to_string,
                               user: Raygun.Plug.get_user(conn, unquote(Raygun.Plug.State.get)))
             reraise exception, stacktrace
         end

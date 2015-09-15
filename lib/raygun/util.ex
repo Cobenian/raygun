@@ -46,4 +46,27 @@ defmodule Raygun.Util do
       file |> List.to_string
     end
 
+    @doc """
+    Like Application.get_env only for get_key function.
+    """
+    def get_key(app, key, default \\ nil) do
+      case :application.get_key(app,key) do
+        {:ok, val} -> val
+        {^key, val} -> val
+        _ -> default
+      end
+    end
+
+    @doc """
+    So in a release this seems to return {:key, value} instead of {:ok, value}
+    for some reason. So we accept that form as well....
+    """
+    def get_env(app, key, default \\ nil) do
+      case Application.get_env(app,key,default) do
+        {^key, value} -> value
+        :undefined -> default
+        value -> value
+      end
+    end
+
 end

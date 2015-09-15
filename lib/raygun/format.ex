@@ -6,6 +6,8 @@ defmodule Raygun.Format do
   to submission to Raygun.
   """
 
+  @raygun_version Mix.Project.config[:version]
+
   @doc """
   Builds an error payload that Raygun will understand for a string.
   """
@@ -61,8 +63,8 @@ defmodule Raygun.Format do
   """
   def custom(opts) do
     %{
-      tags: Application.get_env(:raygun,:tags),
-		  userCustomData: Enum.into(opts, %{})
+      tags: Raygun.Util.get_env(:raygun,:tags),
+		  userCustomData: Enum.into(opts |> Keyword.delete(:user), %{})
     }
   end
 
@@ -74,8 +76,10 @@ defmodule Raygun.Format do
     if Keyword.has_key?(opts, :user) and Keyword.get(opts, :user) do
       %{user: Keyword.get(opts,:user)}
     else
-      if Application.get_env(:raygun, :system_user) do
-        %{user: Application.get_env(:raygun, :system_user)}
+      if Raygun.Util.get_env(:raygun, :system_user) do
+        %{user: Raygun.Util.get_env(:raygun, :system_user)}
+      else
+        %{}
       end
     end
   end
@@ -84,11 +88,15 @@ defmodule Raygun.Format do
   Return a map of information about the environment in which the bug was encountered.
   """
   def environment do
-    :disksup.start_link
-    disks = :disksup.get_disk_data
-    disk_free_spaces = for {_mount_point, capacity, percent_used} <- disks do
-      ((100-percent_used)/100) * capacity
-    end
+    # disk_free_spaces = case :disksup.start_link do
+    #   {:ok, _pid} ->
+    #     disks = :disksup.get_disk_data
+    #     for {_mount_point, capacity, percent_used} <- disks do
+    #       ((100-percent_used)/100) * capacity
+    #     end
+    #   _ -> []
+    # end
+    disk_free_spaces = []
 
     {:ok, hostname} = :inet.gethostname
     hostname = hostname |> List.to_string
@@ -119,17 +127,23 @@ defmodule Raygun.Format do
 
     %{
     		machineName: hostname,
-    		version: Mix.Project.config[:deps][:raygun],
+    		version: @raygun_version,
     		client: %{
-    			name: Mix.Project.config[:app],
-    			version: Mix.Project.config[:version],
-    			clientUrl: Mix.Project.config[:raygun][:url]
+    			name: Raygun.Util.get_env(:raygun, :client_name),
+    			version: Raygun.Util.get_env(:raygun, :client_version),
+    			clientUrl: Raygun.Util.get_env(:raygun, :url),
     		}
     }
   end
 
   @doc """
   Get the current time in ISO 8601 format.
+
+  If you see an error sending messages to Raygun that looks like:
+  ```
+  :ets.lookup(:tzdata_current_release, :release_version)
+  ```
+  then you need to add :tzdata to your list of applications in your mix.exs file.
   """
   def now do
     {:ok, datetime} = Timex.Date.now |> Timex.DateFormat.format("{ISOz}")
@@ -192,8 +206,7 @@ defmodule Raygun.Format do
   def stacktrace_entry({function, arity_or_args, location}) do
     stacktrace_entry {__MODULE__, function, arity_or_args, location}
   end
-  def stacktrace_entry(entry = {module, function, arity_or_args, location}) do
-    IO.inspect entry
+  def stacktrace_entry({module, function, arity_or_args, location}) do
     %{
       lineNumber: Raygun.Util.line_from(location),
       className: Raygun.Util.mod_for(module),

@@ -11,7 +11,7 @@ sidebarNodes = {
 },{"id": "Raygun.Plug.State",
 "docs": ["get/0","set/1","start_link/0"]
 },{"id": "Raygun.Util",
-"docs": ["file_from/1","format_headers/1","function_and_arity/2","line_from/1","mod_for/1"]
+"docs": ["file_from/1","format_headers/1","function_and_arity/2","get_env/3","get_key/3","line_from/1","mod_for/1"]
 
   }]
 

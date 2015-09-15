@@ -7,5 +7,5 @@
   "plug": {:hex, :plug, "1.0.0"},
   "poison": {:hex, :poison, "1.4.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
-  "timex": {:hex, :timex, "0.19.2"},
-  "tzdata": {:hex, :tzdata, "0.1.7"}}
+  "timex": {:hex, :timex, "0.19.4"},
+  "tzdata": {:hex, :tzdata, "0.5.2"}}
