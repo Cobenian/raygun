@@ -52,7 +52,7 @@ defmodule Raygun.Mixfile do
 
   defp package do
     [# These are the default files included in the package
-     contributors: ["Bryan Weber"],
+     maintainers: ["Bryan Weber"],
      licenses: ["Apache 2.0"],
      links: %{"GitHub" => "https://github.com/cobenian/raygun"}]
   end
