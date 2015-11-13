@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     
-        <title>Raygun.Util – raygun v0.1.1</title>
+        <title>Raygun.Util – raygun v0.1.2</title>
       
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc">
@@ -24,7 +24,7 @@
 
   <h1 id="full_list_header">
     
-      <a href="https://github.com/cobenian/raygun">raygun v0.1.1</a>
+      <a href="https://github.com/cobenian/raygun">raygun v0.1.2</a>
     
   </h1>
 
@@ -74,7 +74,7 @@
         <button type="button" class="btn btn-default btn-sm" data-toggle="offcanvas">
           <span class="glyphicon glyphicon-menu-hamburger"></span>
         </button>
-        raygun v0.1.1 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Raygun.html#content">Raygun</a> &rarr; <a href="Raygun.Util.html#content">Util</a>
+        raygun v0.1.2 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Raygun.html#content">Raygun</a> &rarr; <a href="Raygun.Util.html#content">Util</a>
       </div>
 
       <h1>
@@ -103,7 +103,7 @@ of stacktrace data into strings.</p>
       
 
       
-        <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L1" class="view_source">Source</a>
+        <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L3" class="view_source">Source</a>
       
 
       
@@ -111,7 +111,7 @@ of stacktrace data into strings.</p>
           <h1>Summary</h1>
           <table class="summary">
             <tr>
-  <td class="summary_signature"><a href="#file_from/1">file_from(list1)</a></td>
+  <td class="summary_signature"><a href="#file_from/1">file_from(list)</a></td>
   <td class="summary_synopsis"><p>Given stacktrace information, get the file name</p>
 </td>
 </tr>
@@ -121,7 +121,7 @@ of stacktrace data into strings.</p>
 </td>
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#function_and_arity/2">function_and_arity(function, arity)</a></td>
+  <td class="summary_signature"><a href="#function_and_arity/2">function_and_arity(function, list)</a></td>
   <td class="summary_synopsis"><p>Given a function name (atom) and arity (number), return a string in the form
 func_name/2</p>
 </td>
@@ -138,7 +138,7 @@ for some reason. So we accept that form as well</p>
 </td>
 </tr>
 <tr>
-  <td class="summary_signature"><a href="#line_from/1">line_from(list1)</a></td>
+  <td class="summary_signature"><a href="#line_from/1">line_from(list)</a></td>
   <td class="summary_synopsis"><p>Given stacktrace information, get the line number</p>
 </td>
 </tr>
@@ -159,7 +159,7 @@ for some reason. So we accept that form as well</p>
           <h1>Functions</h1>
           <section class="detail">
   <div class="detail_header" id="file_from/1">
-    <span class="signature"><strong>file_from(list1)</strong></span>
+    <span class="signature"><strong>file_from(list)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#file_from/1" class="detail_link" title="Link to this function">#</a>
@@ -172,7 +172,7 @@ for some reason. So we accept that form as well</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L45" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L46" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -190,12 +190,12 @@ for some reason. So we accept that form as well</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L11" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L8" class="view_source">Source</a>
   
 </section>
 <section class="detail">
   <div class="detail_header" id="function_and_arity/2">
-    <span class="signature"><strong>function_and_arity(function, arity)</strong></span>
+    <span class="signature"><strong>function_and_arity(function, list)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#function_and_arity/2" class="detail_link" title="Link to this function">#</a>
@@ -209,7 +209,7 @@ func_name/2.</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L21" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L17" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -246,12 +246,12 @@ for some reason. So we accept that form as well….</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L52" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L53" class="view_source">Source</a>
   
 </section>
 <section class="detail">
   <div class="detail_header" id="line_from/1">
-    <span class="signature"><strong>line_from(list1)</strong></span>
+    <span class="signature"><strong>line_from(list)</strong></span>
     <div class="detail_header_links">
       <span class="detail_type">(function)</span>
       <a href="#line_from/1" class="detail_link" title="Link to this function">#</a>
@@ -264,7 +264,7 @@ for some reason. So we accept that form as well….</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L38" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L39" class="view_source">Source</a>
   
 </section>
 <section class="detail">
@@ -282,7 +282,7 @@ for some reason. So we accept that form as well….</p>
 
   </section>
   
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L28" class="view_source">Source</a>
+    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun/util.ex#L29" class="view_source">Source</a>
   
 </section>
 
