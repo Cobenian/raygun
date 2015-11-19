@@ -127,10 +127,10 @@ defmodule Raygun.Format do
 
     %{
     		machineName: hostname,
-    		version: @raygun_version,
+    		version: Raygun.Util.get_env(:raygun, :client_version),
     		client: %{
     			name: Raygun.Util.get_env(:raygun, :client_name),
-    			version: Raygun.Util.get_env(:raygun, :client_version),
+    			version: @raygun_version,
     			clientUrl: Raygun.Util.get_env(:raygun, :url),
     		}
     }
