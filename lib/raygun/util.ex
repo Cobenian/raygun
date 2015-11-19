@@ -39,6 +39,9 @@ defmodule Raygun.Util do
     @doc """
     Given stacktrace information, get the line number.
     """
+    def line_from([]) do
+      "unknown"
+    end
     def line_from(file: _file, line: line) do
       line
     end
@@ -46,6 +49,9 @@ defmodule Raygun.Util do
     @doc """
     Given stacktrace information, get the file name.
     """
+    def file_from([]) do
+      "unknown"
+    end
     def file_from(file: file, line: _line) do
       file |> List.to_string
     end
