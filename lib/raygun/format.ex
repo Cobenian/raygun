@@ -47,7 +47,7 @@ defmodule Raygun.Format do
     %{
       occurredOn: now,
       details:
-        details
+        details(opts)
         |> Dict.merge( err(stacktrace, exception) )
         |> Dict.merge( environment )
         |> Dict.merge( request(conn) )
@@ -121,13 +121,15 @@ defmodule Raygun.Format do
   @doc """
   Returns deatils about the client and server machine.
   """
-  def details do
+  def details(opts \\ []) do
     {:ok, hostname} = :inet.gethostname
     hostname = hostname |> List.to_string
 
+    app_version = if opts[:version] do opts[:version] else Raygun.Util.get_env(:raygun, :client_version) end
+
     %{
     		machineName: hostname,
-    		version: Raygun.Util.get_env(:raygun, :client_version),
+    		version: app_version,
     		client: %{
     			name: Raygun.Util.get_env(:raygun, :client_name),
     			version: @raygun_version,

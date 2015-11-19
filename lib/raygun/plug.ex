@@ -47,6 +47,8 @@ defmodule Raygun.Plug do
     quote location: :keep do
       defoverridable [call: 2]
 
+      @app_using_raygun_version Mix.Project.config[:version]
+
       def call(conn, opts) do
         try do
           super(conn, opts)
@@ -55,6 +57,7 @@ defmodule Raygun.Plug do
             stacktrace = System.stacktrace
             Raygun.report_plug(conn, stacktrace, exception,
                               vsn: Raygun.Util.get_key(:raygun, :vsn) |> List.to_string,
+                              version: @app_using_raygun_version,
                               user: Raygun.Plug.get_user(conn, unquote(Raygun.Plug.State.get)))
             reraise exception, stacktrace
         end

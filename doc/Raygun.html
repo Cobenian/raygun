@@ -3,96 +3,71 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
-        <title>Raygun – raygun v0.1.5</title>
-      
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Raygun – raygun v0.1.6</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc">
-
-    <link rel="stylesheet" href="dist/app.css">
+    <meta name="generator" content="ExDoc v0.10.0">
+    <link rel="stylesheet" href="dist/app.css" />
+    <script src="dist/sidebar_items.js"></script>
   </head>
-  <body>
+  <body data-type="modules">
 
-    
-    <div class="row row-offcanvas row-offcanvas-left">
-<section id="sidebar" class="col-xs-6 col-sm-3 sidebar-offcanvas">
-  <p class="pull-right visible-xs">
-  <button type="button" class="btn btn-default btn-sm" data-toggle="offcanvas">
-    <span class="glyphicon glyphicon-search"></span>
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
   </button>
-  </p>
 
-  <h1 id="full_list_header">
+  
+  <a href="extra-api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        raygun
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.6
+      </h2>
+    </div>
     
-      <a href="https://github.com/cobenian/raygun">raygun v0.1.5</a>
-    
-  </h1>
+  </a>
 
-  <h2 id="sub_list_header">
-    
-    <a href="overview.html">Overview</a>
-  </h2>
-
-  <div class="nav">
-    
-      <span><a id="modules_list" href="#full_list">Modules</a></span>
-    
-    
-      <span role="presentation" class="disabled">Exceptions</span>
-    
-    
-      <span role="presentation" class="disabled">Protocols</span>
-    
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
   </div>
 
-  <div id="search">
-    <div class="col-xs-10">
-      <div class="input-group input-group-sm">
-        <label for="search_field" class="sr-only">Search</label>
-        <input type="text" id="search_field" class="form-control" placeholder="Search" autocomplete="off" autofocus="autofocus" results="0">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-        </span>
-      </div><!-- /input-group -->
-    </div><!-- /.col-xs-10 -->
-    <div class="col-xs-2" id="spinning">
-      <span></span>
-    </div><!-- /.col-xs-2 -->
-  </div><!-- /#search .row -->
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
 
-  <script src="dist/sidebar_items.js" defer></script>
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
 
-  <ul id="full_list">
+    
+
+    
   </ul>
 
-  <div id="no_results"></div>
-</section><!--/.sidebar-offcanvas -->
-<section id="content" class="col-xs-12 col-sm-9">
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
 
+<section class="content">
+  <div id="content" class="content-inner">
 
-      <div class="breadcrumbs">
-        <button type="button" class="btn btn-default btn-sm" data-toggle="offcanvas">
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </button>
-        raygun v0.1.5 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Raygun.html#content">Raygun</a>
-      </div>
 
       <h1>
         Raygun
         
+        
+          <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L1" title="View Source" class="view-source" rel="help">
+            <i class="icon-code"></i>
+          </a>
+        
       </h1>
-
-      <ul class="summary_links">
-        
-          <li><a href="#summary_details">Summary</a></li>
-        
-        
-        
-          <li><a href="#functions_details">Functions</a></li>
-        
-        
-        
-      </ul>
 
       
         <section id="moduledoc" class="docstring">
@@ -110,66 +85,109 @@
       
 
       
-        <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L3" class="view_source">Source</a>
-      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
 
-      
-        <section id="summary_details" class="details_list">
-          <h1>Summary</h1>
-          <table class="summary">
-            <tr>
-  <td class="summary_signature"><a href="#report_exception/2">report_exception(exception, opts \\ [])</a></td>
-  <td class="summary_synopsis"><p>Convenience function that captures the most recent stacktrace and reports it
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#report_exception/2">report_exception(exception, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Convenience function that captures the most recent stacktrace and reports it
 along with the exception. NOTE: it is the responsiblity of the caller to
 ensure that the most recent stacktrace is the one associated with the
 exception</p>
-</td>
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#report_message/2">report_message(msg, opts \\ [])</a></td>
-  <td class="summary_synopsis"><p>Reports a string message. This function is used by the Raygun.Logger but it
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#report_message/2">report_message(msg, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Reports a string message. This function is used by the Raygun.Logger but it
 can also be used to report any string message</p>
-</td>
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#report_plug/4">report_plug(conn, stacktrace, exception, opts \\ [])</a></td>
-  <td class="summary_synopsis"><p>Reports an exception and its corresponding stacktrace to Raygun. Additionally
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#report_plug/4">report_plug(conn, stacktrace, exception, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Reports an exception and its corresponding stacktrace to Raygun. Additionally
 this captures some additional information about the environment in which
 the exception occurred by retrieving some state from the Plug Conn</p>
-</td>
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#report_stacktrace/3">report_stacktrace(stacktrace, exception, opts \\ [])</a></td>
-  <td class="summary_synopsis"><p>Reports an exception and its corresponding stacktrace to Raygun</p>
-</td>
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#send_report/1">send_report(json)</a></td>
-  <td class="summary_synopsis"><p>Send an error to Raygun</p>
-</td>
-</tr>
-<tr>
-  <td class="summary_signature"><a href="#send_report_to_raygun/1">send_report_to_raygun(json)</a></td>
-  <td class="summary_synopsis"></td>
-</tr>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#report_stacktrace/3">report_stacktrace(stacktrace, exception, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Reports an exception and its corresponding stacktrace to Raygun</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#send_report/1">send_report(json)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Send an error to Raygun</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#send_report_to_raygun/1">send_report_to_raygun(json)</a>
+  </div>
+  
+</div>
 
-          </table>
+  </div>
+
+
+          
+
+          
+
         </section>
       
 
       
 
       
-        <section id="functions_details" class="details_list">
-          <h1>Functions</h1>
-          <section class="detail">
-  <div class="detail_header" id="report_exception/2">
-    <span class="signature"><strong>report_exception(exception, opts \\ [])</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#report_exception/2" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="report_exception/2">
+  <div class="detail-header">
+    <a href="#report_exception/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">report_exception(exception, opts \\ [])</span>
+      
+      <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L30" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
   </div>
   
   <section class="docstring">
@@ -179,18 +197,18 @@ ensure that the most recent stacktrace is the one associated with the
 exception.</p>
 
   </section>
-  
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L24" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="report_message/2">
-    <span class="signature"><strong>report_message(msg, opts \\ [])</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#report_message/2" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
+</div>
+<div class="detail" id="report_message/2">
+  <div class="detail-header">
+    <a href="#report_message/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">report_message(msg, opts \\ [])</span>
+      
+      <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L17" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
   </div>
   
   <section class="docstring">
@@ -198,18 +216,18 @@ exception.</p>
 can also be used to report any string message.</p>
 
   </section>
-  
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L13" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="report_plug/4">
-    <span class="signature"><strong>report_plug(conn, stacktrace, exception, opts \\ [])</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#report_plug/4" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
+</div>
+<div class="detail" id="report_plug/4">
+  <div class="detail-header">
+    <a href="#report_plug/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">report_plug(conn, stacktrace, exception, opts \\ [])</span>
+      
+      <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L50" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
   </div>
   
   <section class="docstring">
@@ -218,63 +236,60 @@ this captures some additional information about the environment in which
 the exception occurred by retrieving some state from the Plug Conn.</p>
 
   </section>
-  
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L45" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="report_stacktrace/3">
-    <span class="signature"><strong>report_stacktrace(stacktrace, exception, opts \\ [])</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#report_stacktrace/3" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
+</div>
+<div class="detail" id="report_stacktrace/3">
+  <div class="detail-header">
+    <a href="#report_stacktrace/3" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">report_stacktrace(stacktrace, exception, opts \\ [])</span>
+      
+      <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L38" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
   </div>
   
   <section class="docstring">
     <p>Reports an exception and its corresponding stacktrace to Raygun.</p>
 
   </section>
-  
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L35" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="send_report/1">
-    <span class="signature"><strong>send_report(json)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#send_report/1" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
+</div>
+<div class="detail" id="send_report/1">
+  <div class="detail-header">
+    <a href="#send_report/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">send_report(json)</span>
+      
+      <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L60" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
   </div>
   
   <section class="docstring">
     <p>Send an error to Raygun.</p>
 
   </section>
-  
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L57" class="view_source">Source</a>
-  
-</section>
-<section class="detail">
-  <div class="detail_header" id="send_report_to_raygun/1">
-    <span class="signature"><strong>send_report_to_raygun(json)</strong></span>
-    <div class="detail_header_links">
-      <span class="detail_type">(function)</span>
-      <a href="#send_report_to_raygun/1" class="detail_link" title="Link to this function">#</a>
-      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
-    </div>
+</div>
+<div class="detail" id="send_report_to_raygun/1">
+  <div class="detail-header">
+    <a href="#send_report_to_raygun/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">send_report_to_raygun(json)</span>
+      
+      <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L64" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
   </div>
   
   <section class="docstring">
     
   </section>
-  
-    <a href="https://github.com/cobenian/raygun/blob/master/lib/raygun.ex#L64" class="view_source">Source</a>
-  
-</section>
+</div>
 
         </section>
       
@@ -282,9 +297,21 @@ the exception occurred by retrieving some state from the Plug Conn.</p>
       
 
       
-      </section> <!--/content -->
-</div><!--/row -->
-
+        <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.10.0),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+    </footer>
+  </div>
+</section>
+</div>
     <script src="dist/app.js"></script>
   </body>
 </html>

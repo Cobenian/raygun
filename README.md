@@ -10,7 +10,7 @@ Add the dependency to your mix.exs file.
 
 ```elixir
 def deps do  
-  [{:raygun, "~> 0.1.5"}]
+  [{:raygun, "~> 0.1.6"}]
 end
 ```
 
@@ -46,6 +46,8 @@ config :raygun,
     client_name: "MyApp",
     client_version: "2.3.4"
 ```
+
+If you use a plug, the version (client_version above) should be auto detected for you.
 
 ## Usage
 
