@@ -46,7 +46,7 @@ defmodule Raygun.Mixfile do
       {:plug, "~> 1.0.0"},
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.7", only: :dev},
-      {:exrm, "~> 0.19"},
+      {:exrm, ">= 0.19.0"},
     ]
   end
 
