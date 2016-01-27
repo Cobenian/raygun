@@ -64,7 +64,7 @@ defmodule Raygun.Format do
   def custom(opts) do
     %{
       tags: Raygun.Util.get_env(:raygun,:tags),
-		  userCustomData: Enum.into(opts |> Keyword.delete(:user), %{})
+      userCustomData: Enum.into(opts |> Keyword.delete(:user), %{})
     }
   end
 
@@ -88,14 +88,6 @@ defmodule Raygun.Format do
   Return a map of information about the environment in which the bug was encountered.
   """
   def environment do
-    # disk_free_spaces = case :disksup.start_link do
-    #   {:ok, _pid} ->
-    #     disks = :disksup.get_disk_data
-    #     for {_mount_point, capacity, percent_used} <- disks do
-    #       ((100-percent_used)/100) * capacity
-    #     end
-    #   _ -> []
-    # end
     disk_free_spaces = []
 
     {:ok, hostname} = :inet.gethostname
@@ -128,26 +120,17 @@ defmodule Raygun.Format do
     app_version = if opts[:version] do opts[:version] else Raygun.Util.get_env(:raygun, :client_version) end
 
     %{
-    		machineName: hostname,
-    		version: app_version,
-    		client: %{
-    			name: Raygun.Util.get_env(:raygun, :client_name),
-    			version: @raygun_version,
-    			clientUrl: Raygun.Util.get_env(:raygun, :url),
-    		}
+      machineName: hostname,
+      version: app_version,
+      client: %{
+        name: Raygun.Util.get_env(:raygun, :client_name),
+        version: @raygun_version,
+        clientUrl: Raygun.Util.get_env(:raygun, :url),
+      }
     }
   end
 
-  @doc """
-  Get the current time in ISO 8601 format.
-
-  If you see an error sending messages to Raygun that looks like:
-  ```
-  :ets.lookup(:tzdata_current_release, :release_version)
-  ```
-  then you need to add :tzdata to your list of applications in your mix.exs file.
-  """
-  def now do
+  defp now do
     {:ok, datetime} = Timex.Date.now |> Timex.DateFormat.format("{ISOz}")
     datetime
   end
