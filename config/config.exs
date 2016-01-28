@@ -27,7 +27,7 @@ use Mix.Config
 #
 #     import_config "#{Mix.env}.exs"
 
-## Sampple Raygun config
+## Sample Raygun config
 # config :raygun,
 #     api_key: "<YOUR API KEY GOES HERE>",
 #     tags: [:dev, :alpha],
