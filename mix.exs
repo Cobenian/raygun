@@ -17,7 +17,7 @@ defmodule Raygun.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :httpoison, :plug, :timex, :tzdata]]
+    [applications: [:logger, :httpoison, :plug, :timex, :tzdata, :poison]]
   end
 
   def description do
@@ -40,7 +40,7 @@ defmodule Raygun.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:poison, "~> 1.4"},
+      {:poison, "~> 2.0 or ~> 1.0"},
       {:httpoison, "~> 0.8"},
       {:timex, "~> 1.0"},
       {:plug, "~> 1.0"},
