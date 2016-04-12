@@ -131,7 +131,7 @@ defmodule Raygun.Format do
   end
 
   defp now do
-    {:ok, datetime} = Timex.Date.now |> Timex.DateFormat.format("{ISOz}")
+    {:ok, datetime} = Timex.DateTime.now |> Timex.format("{ISOz}")
     datetime
   end
 
