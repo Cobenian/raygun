@@ -10,7 +10,7 @@ Add the dependency to your mix.exs file.
 
 ```elixir
 def deps do  
-  [{:raygun, "~> 0.2.0"}]
+  [{:raygun, "~> 0.3.0"}]
 end
 ```
 
