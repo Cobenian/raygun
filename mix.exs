@@ -3,7 +3,7 @@ defmodule Raygun.Mixfile do
 
   def project do
     [app: :raygun,
-     version: "0.2.0",
+     version: "0.3.0",
      elixir: "~> 1.0",
      source_url: "https://github.com/cobenian/raygun",
      build_embedded: Mix.env == :prod,
@@ -42,10 +42,10 @@ defmodule Raygun.Mixfile do
     [
       {:poison, "~> 2.0 or ~> 1.0"},
       {:httpoison, "~> 0.8"},
-      {:timex, "~> 2.0"},
-      {:plug, "~> 1.0"},
-      {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.7", only: :dev},
+      {:timex, "~> 2.1"},
+      {:plug, "~> 1.1"},
+      {:earmark, "~> 0.2", only: :dev},
+      {:ex_doc, "~> 0.11", only: :dev},
       {:meck, "~> 0.8", only: :test}
     ]
   end
