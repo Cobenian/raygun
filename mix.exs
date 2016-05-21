@@ -10,6 +10,8 @@ defmodule Raygun.Mixfile do
      start_permanent: Mix.env == :prod,
      description: description,
      package: package,
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: preferred_cli_env,
      deps: deps]
   end
 
@@ -20,13 +22,22 @@ defmodule Raygun.Mixfile do
     [applications: [:logger, :httpoison, :plug, :timex, :tzdata, :poison]]
   end
 
-  def description do
+  defp description do
     """
     Send errors in your application to Raygun.
 
     Raygun captures all your application errors in one place. It can be used as
     a Plug, via Logger and/or programmatically.
     """
+  end
+
+  defp preferred_cli_env do
+    [
+      "coveralls": :test,
+      "coveralls.detail": :test,
+      "coveralls.post": :test,
+      "coveralls.html": :test
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -46,7 +57,8 @@ defmodule Raygun.Mixfile do
       {:plug, "~> 1.1"},
       {:earmark, "~> 0.2", only: :dev},
       {:ex_doc, "~> 0.11", only: :dev},
-      {:meck, "~> 0.8", only: :test}
+      {:meck, "~> 0.8", only: :test},
+      {:excoveralls, "~> 0.5.4", only: :test}
     ]
   end
 

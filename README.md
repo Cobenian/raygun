@@ -1,5 +1,5 @@
-Raygun
-======
+# Raygun [![Build Status](https://travis-ci.org/Cobenian/raygun.svg?branch=master)](https://travis-ci.org/Cobenian/raygun) [![Hex.pm](https://img.shields.io/hexpm/v/raygun.svg?maxAge=2592000)](https://hex.pm/packages/raygun) [![Hex.pm](https://img.shields.io/hexpm/dt/raygun.svg?maxAge=2592000)](https://hex.pm/packages/raygun) [![Coverage Status](https://coveralls.io/repos/github/Cobenian/raygun/badge.svg?branch=master)](https://coveralls.io/github/Cobenian/raygun?branch=master)
+
 
 Capture and send errors in your Elixir applications to Raygun for centralized
 bug reporting.
