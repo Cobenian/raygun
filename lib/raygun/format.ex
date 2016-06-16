@@ -11,6 +11,10 @@ defmodule Raygun.Format do
   @doc """
   Builds an error payload that Raygun will understand for a string.
   """
+  def message_payload(msg, opts) when is_list(msg) do
+    msg_as_string = List.to_string(msg)
+    message_payload(msg_as_string, opts)
+  end
   def message_payload(msg, opts) do
     %{
       occurredOn: now,
