@@ -16,10 +16,10 @@ defmodule Raygun.Format do
       occurredOn: now,
       details:
         details
-        |> Dict.merge( environment )
-        |> Dict.merge( user(opts) )
-        |> Dict.merge( custom(opts) )
-        |> Dict.merge( %{error: %{ message: msg } } )
+        |> Map.merge( environment )
+        |> Map.merge( user(opts) )
+        |> Map.merge( custom(opts) )
+        |> Map.merge( %{error: %{ message: msg } } )
     }
   end
 
@@ -32,10 +32,10 @@ defmodule Raygun.Format do
       occurredOn: now,
       details:
         details
-        |> Dict.merge( err(stacktrace, exception) )
-        |> Dict.merge( environment )
-        |> Dict.merge( user(opts) )
-        |> Dict.merge( custom(opts) )
+        |> Map.merge( err(stacktrace, exception) )
+        |> Map.merge( environment )
+        |> Map.merge( user(opts) )
+        |> Map.merge( custom(opts) )
     }
   end
 
@@ -48,12 +48,12 @@ defmodule Raygun.Format do
       occurredOn: now,
       details:
         details(opts)
-        |> Dict.merge( err(stacktrace, exception) )
-        |> Dict.merge( environment )
-        |> Dict.merge( request(conn) )
-        |> Dict.merge( response(conn) )
-        |> Dict.merge( user(opts) )
-        |> Dict.merge( custom(opts) )
+        |> Map.merge( err(stacktrace, exception) )
+        |> Map.merge( environment )
+        |> Map.merge( request(conn) )
+        |> Map.merge( response(conn) )
+        |> Map.merge( user(opts) )
+        |> Map.merge( custom(opts) )
     }
   end
 
