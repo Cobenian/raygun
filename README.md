@@ -47,7 +47,7 @@ config :raygun,
     client_version: "2.3.4"
 ```
 
-If you use a plug, the version (client_version above) should be auto detected for you.
+If you use a Plug, the version (client_version above) should be auto detected for you.
 
 ## Usage
 
