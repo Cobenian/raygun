@@ -67,7 +67,7 @@ defmodule YourApp.Router do
 end
 ```
 
-You can also provide a function that takes a Plug Conn and returns a map with
+You can also provide a function that takes a Plug.Conn and returns a map with
 information about the logged in user.
 
 ```elixir
