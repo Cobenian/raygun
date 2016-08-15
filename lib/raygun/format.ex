@@ -134,10 +134,7 @@ defmodule Raygun.Format do
     }
   end
 
-  defp now do
-    {:ok, datetime} = Timex.DateTime.now |> Timex.format("{ISOz}")
-    datetime
-  end
+  defp now, do: DateTime.utc_now |> DateTime.to_iso8601
 
   @doc """
   Given a Plug Conn return a map containing information about the request.
