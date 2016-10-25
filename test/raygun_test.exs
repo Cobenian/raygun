@@ -17,7 +17,7 @@ defmodule RaygunTest do
 
     expect(Raygun.Format, :stacktrace_payload, [:stacktrace, :error, []], :payload)
     expect(Poison, :encode!, [:payload], :json)
-    expect(HTTPoison, :post, ["https://api.raygun.io/entries", :json, :_], {:ok, response})
+    expect(HTTPoison, :post, ["https://api.raygun.io/entries", :json, :_, []], {:ok, response})
 
     assert Raygun.report_stacktrace(:stacktrace, :error) == :ok
   end
