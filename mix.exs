@@ -3,7 +3,7 @@ defmodule Raygun.Mixfile do
 
   def project do
     [app: :raygun,
-     version: "0.3.1",
+     version: "0.3.2",
      elixir: "~> 1.3",
      source_url: "https://github.com/cobenian/raygun",
      build_embedded: Mix.env == :prod,
