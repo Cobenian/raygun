@@ -4,8 +4,6 @@ defmodule Raygun.Plug.State do
   router so it can be used before compiling the remaining macros.
   """
 
-  @mix_env Atom.to_string(Mix.env)
-
   def start_link do
     Agent.start_link(fn -> nil end, name: __MODULE__)
   end
