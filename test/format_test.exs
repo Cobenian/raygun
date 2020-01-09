@@ -14,20 +14,43 @@ defmodule Raygun.FormatTest do
     ]
 
     error = %{
-      className: "Elixir.RaygunTest",
-      data: %{fileName: "test/raygun_test.exs", function: "test report_stacktrace/1", lineNumber: 30},
-      innerError: nil,
-      message: "error_message",
-      stackTrace: [
-        %{ className: "Elixir.RaygunTest", fileName: "test/raygun_test.exs", lineNumber: 30, methodName: "test report_stacktrace/1"},
-        %{className: "Elixir.ExUnit.Runner", fileName: "lib/ex_unit/runner.ex", lineNumber: 253, methodName: "exec_test/2"},
-        %{className: "timer", fileName: "timer.erl", lineNumber: 166, methodName: "tc/1"},
-        %{className: "Elixir.ExUnit.Runner", fileName: "lib/ex_unit/runner.ex", lineNumber: 201, methodName: "-spawn_test/3-fun-1-/3"}
+      "className" => "Elixir.RaygunTest",
+      "data" => %{
+        "fileName" => "test/raygun_test.exs",
+        "function" => "test report_stacktrace/1",
+        "lineNumber" => 30
+      },
+      "innerError" => nil,
+      "message" => "error_message",
+      "stackTrace" => [
+        %{
+          "className" => "Elixir.RaygunTest",
+          "fileName" => "test/raygun_test.exs",
+          "lineNumber" => 30,
+          "methodName" => "test report_stacktrace/1"
+        },
+        %{
+          "className" => "Elixir.ExUnit.Runner",
+          "fileName" => "lib/ex_unit/runner.ex",
+          "lineNumber" => 253,
+          "methodName" => "exec_test/2"
+        },
+        %{
+          "className" => "timer",
+          "fileName" => "timer.erl",
+          "lineNumber" => 166,
+          "methodName" => "tc/1"
+        },
+        %{
+          "className" => "Elixir.ExUnit.Runner",
+          "fileName" => "lib/ex_unit/runner.ex",
+          "lineNumber" => 201,
+          "methodName" => "-spawn_test/3-fun-1-/3"
+        }
       ]
     }
 
     format = Raygun.Format.stacktrace_payload(stacktrace, %Error{message: "error_message"}, [])
-    assert ^error = format.details.error
+    assert error == format["details"]["error"]
   end
 end
-

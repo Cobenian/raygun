@@ -1,29 +1,28 @@
 defmodule Raygun.Format do
-
   @moduledoc """
   This module builds payloads of error messages that Raygun will understand.
   These functions return maps of data which will be encoding as JSON prior
   to submission to Raygun.
   """
 
-  @raygun_version Mix.Project.config[:version]
+  @raygun_version Mix.Project.config()[:version]
 
   @doc """
   Builds an error payload that Raygun will understand for a string.
   """
   def message_payload(msg, opts) when is_list(msg) do
-    msg_as_string = List.to_string(msg)
-    message_payload(msg_as_string, opts)
+    msg |> List.to_string() |> message_payload(opts)
   end
+
   def message_payload(msg, opts) do
     %{
-      occurredOn: now,
-      details:
-        details
-        |> Map.merge( environment )
-        |> Map.merge( user(opts) )
-        |> Map.merge( custom(opts) )
-        |> Map.merge( %{error: %{ message: msg } } )
+      "occurredOn" => now(),
+      "details" =>
+        details()
+        |> Map.merge(environment())
+        |> Map.merge(user(opts))
+        |> Map.merge(custom(opts))
+        |> Map.merge(%{"error" => %{"message" => msg}})
     }
   end
 
@@ -33,13 +32,13 @@ defmodule Raygun.Format do
   """
   def stacktrace_payload(stacktrace, exception, opts) do
     %{
-      occurredOn: now,
-      details:
-        details
-        |> Map.merge( err(stacktrace, exception) )
-        |> Map.merge( environment )
-        |> Map.merge( user(opts) )
-        |> Map.merge( custom(opts) )
+      "occurredOn" => now(),
+      "details" =>
+        details()
+        |> Map.merge(err(stacktrace, exception))
+        |> Map.merge(environment())
+        |> Map.merge(user(opts))
+        |> Map.merge(custom(opts))
     }
   end
 
@@ -49,15 +48,15 @@ defmodule Raygun.Format do
   """
   def conn_payload(conn, stacktrace, exception, opts) do
     %{
-      occurredOn: now,
-      details:
+      "occurredOn" => now(),
+      "details" =>
         details(opts)
-        |> Map.merge( err(stacktrace, exception) )
-        |> Map.merge( environment )
-        |> Map.merge( request(conn) )
-        |> Map.merge( response(conn) )
-        |> Map.merge( user(opts) )
-        |> Map.merge( custom(opts) )
+        |> Map.merge(err(stacktrace, exception))
+        |> Map.merge(environment())
+        |> Map.merge(request(conn))
+        |> Map.merge(response(conn))
+        |> Map.merge(user(opts))
+        |> Map.merge(custom(opts))
     }
   end
 
@@ -67,8 +66,8 @@ defmodule Raygun.Format do
   """
   def custom(opts) do
     %{
-      tags: Raygun.Util.get_env(:raygun,:tags),
-      userCustomData: Enum.into(opts |> Keyword.delete(:user), %{})
+      "tags" => Raygun.Util.get_env(:raygun, :tags),
+      "userCustomData" => Enum.into(opts |> Keyword.delete(:user), %{})
     }
   end
 
@@ -77,14 +76,15 @@ defmodule Raygun.Format do
   If not, it gets the system user if one is specified.
   """
   def user(opts) do
-    if Keyword.has_key?(opts, :user) and Keyword.get(opts, :user) do
-      %{user: Keyword.get(opts,:user)}
-    else
-      if Raygun.Util.get_env(:raygun, :system_user) do
-        %{user: Raygun.Util.get_env(:raygun, :system_user)}
-      else
+    cond do
+      Keyword.has_key?(opts, :user) and Keyword.get(opts, :user) ->
+        %{"user" => Keyword.get(opts, :user)}
+
+      Raygun.Util.get_env(:raygun, :system_user) ->
+        %{"user" => Raygun.Util.get_env(:raygun, :system_user)}
+
+      true ->
         %{}
-      end
     end
   end
 
@@ -92,24 +92,15 @@ defmodule Raygun.Format do
   Return a map of information about the environment in which the bug was encountered.
   """
   def environment do
-    disk_free_spaces = []
-
-    {:ok, hostname} = :inet.gethostname
-    hostname = hostname |> List.to_string
-    {os_type, os_flavor} = :os.type
-    os_version = "#{os_type} - #{os_flavor}"
-    architecture = :erlang.system_info(:system_architecture) |> List.to_string
-    sys_version = :erlang.system_info(:system_version) |> List.to_string
-    processor_count = :erlang.system_info(:logical_processors_online)
-    memory_used = :erlang.memory(:total)
-    %{environment: %{
-        osVersion: os_version,
-        architecture: architecture,
-        packageVersion: sys_version,
-        processorCount: processor_count,
-        totalPhysicalMemory: memory_used,
-        deviceName: hostname,
-        diskSpaceFree: disk_free_spaces,
+    %{
+      "environment" => %{
+        "osVersion" => os_version(),
+        "architecture" => List.to_string(:erlang.system_info(:system_architecture)),
+        "packageVersion" => List.to_string(:erlang.system_info(:system_version)),
+        "processorCount" => :erlang.system_info(:logical_processors_online),
+        "totalPhysicalMemory" => :erlang.memory(:total),
+        "deviceName" => device_name(),
+        "diskSpaceFree" => []
       }
     }
   end
@@ -118,37 +109,33 @@ defmodule Raygun.Format do
   Returns deatils about the client and server machine.
   """
   def details(opts \\ []) do
-    {:ok, hostname} = :inet.gethostname
-    hostname = hostname |> List.to_string
-
-    app_version = if opts[:version] do opts[:version] else Raygun.Util.get_env(:raygun, :client_version) end
-
     %{
-      machineName: hostname,
-      version: app_version,
-      client: %{
-        name: Raygun.Util.get_env(:raygun, :client_name),
-        version: @raygun_version,
-        clientUrl: Raygun.Util.get_env(:raygun, :url),
+      "machineName" => device_name(),
+      "version" => app_version(opts),
+      "client" => %{
+        "name" => Raygun.Util.get_env(:raygun, :client_name),
+        "version" => @raygun_version,
+        "clientUrl" => Raygun.Util.get_env(:raygun, :url)
       }
     }
   end
 
-  defp now, do: DateTime.utc_now |> DateTime.to_iso8601
+  defp now, do: DateTime.to_iso8601(DateTime.utc_now())
 
   @doc """
   Given a Plug Conn return a map containing information about the request.
   """
   def request(conn) do
-    %{request: %{
-        hostName: conn.host,
-        url: conn.request_path,
-        httpMethod: conn.method,
-        iPAddress: conn.remote_ip |> :inet.ntoa |> List.to_string,
-        queryString: Plug.Conn.fetch_query_params(conn).query_params,
-        form: Plug.Parsers.call(conn, []).params,
-        headers: Raygun.Util.format_headers(conn.req_headers),
-        rawData: %{}
+    %{
+      "request" => %{
+        "hostName" => conn.host,
+        "url" => conn.request_path,
+        "httpMethod" => conn.method,
+        "iPAddress" => conn.remote_ip |> :inet.ntoa() |> List.to_string(),
+        "queryString" => Plug.Conn.fetch_query_params(conn).query_params,
+        "form" => Plug.Parsers.call(conn, []).params,
+        "headers" => Raygun.Util.format_headers(conn.req_headers),
+        "rawData" => %{}
       }
     }
   end
@@ -157,23 +144,32 @@ defmodule Raygun.Format do
   Given a Plug Conn return a map containing information about the response.
   """
   def response(conn) do
-    %{response: %{
-        statusCode: conn.status
-      }
-    }
+    %{"response" => %{"statusCode" => conn.status}}
   end
 
   @doc """
   Given a stacktrace and an exception, return a map with the error data.
   """
   def err(stacktrace, error) do
-    s0 = Enum.at(stacktrace, 0) |> stacktrace_entry
-    %{error: %{
-        innerError: nil,
-        data: %{fileName: s0.fileName, lineNumber: s0.lineNumber, function: s0.methodName},
-        className: s0.className,
-        message: Exception.message(error),
-        stackTrace: stacktrace(stacktrace)
+    err(
+      stacktrace,
+      error,
+      stacktrace_entry(Enum.at(stacktrace, 0))
+    )
+  end
+
+  def err(stacktrace, error, line) do
+    %{
+      "error" => %{
+        "innerError" => nil,
+        "data" => %{
+          "fileName" => line["fileName"],
+          "lineNumber" => line["lineNumber"],
+          "function" => line["methodName"]
+        },
+        "className" => line["className"],
+        "message" => Exception.message(error),
+        "stackTrace" => stacktrace(stacktrace)
       }
     }
   end
@@ -182,7 +178,7 @@ defmodule Raygun.Format do
   Given a stacktrace return a list of maps for the frames.
   """
   def stacktrace(s) do
-    s |> Enum.map(&stacktrace_entry/1)
+    Enum.map(s, &stacktrace_entry/1)
   end
 
   @doc """
@@ -190,15 +186,35 @@ defmodule Raygun.Format do
   that Raygun will understand.
   """
   def stacktrace_entry({function, arity_or_args, location}) do
-    stacktrace_entry {__MODULE__, function, arity_or_args, location}
+    stacktrace_entry({__MODULE__, function, arity_or_args, location})
   end
+
   def stacktrace_entry({module, function, arity_or_args, location}) do
     %{
-      lineNumber: Raygun.Util.line_from(location),
-      className: Raygun.Util.mod_for(module),
-      fileName: Raygun.Util.file_from(location),
-      methodName: Raygun.Util.function_and_arity(function,arity_or_args)
+      "lineNumber" => Raygun.Util.line_from(location),
+      "className" => Raygun.Util.mod_for(module),
+      "fileName" => Raygun.Util.file_from(location),
+      "methodName" => Raygun.Util.function_and_arity(function, arity_or_args)
     }
   end
 
+  defp app_version(opts) do
+    if opts[:version] do
+      opts[:version]
+    else
+      Raygun.Util.get_env(:raygun, :client_version)
+    end
+  end
+
+  defp device_name do
+    case :inet.gethostname() do
+      {:ok, hostname} -> List.to_string(hostname)
+      _other -> ""
+    end
+  end
+
+  defp os_version do
+    {os_type, os_flavor} = :os.type()
+    "#{os_type} - #{os_flavor}"
+  end
 end

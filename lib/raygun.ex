@@ -16,24 +16,18 @@ defmodule Raygun do
   can also be used to report any string message.
   """
   def report_message(msg, opts \\ []) do
-    Raygun.Format.message_payload(msg, opts) |> send_report
-  end
-
-  @doc """
-  Convenience function that captures the most recent stacktrace and reports it
-  along with the exception. NOTE: it is the responsiblity of the caller to
-  ensure that the most recent stacktrace is the one associated with the
-  exception.
-  """
-  def report_exception(exception, opts \\ []) do
-    System.stacktrace |> report_stacktrace(exception, opts)
+    msg
+    |> Raygun.Format.message_payload(opts)
+    |> send_report()
   end
 
   @doc """
   Reports an exception and its corresponding stacktrace to Raygun.
   """
   def report_stacktrace(stacktrace, exception, opts \\ []) do
-    Raygun.Format.stacktrace_payload(stacktrace, exception, opts) |> send_report
+    stacktrace
+    |> Raygun.Format.stacktrace_payload(exception, opts)
+    |> send_report()
   end
 
   @doc """
@@ -42,22 +36,30 @@ defmodule Raygun do
   the exception occurred by retrieving some state from the Plug Conn.
   """
   def report_plug(conn, stacktrace, exception, opts \\ []) do
-    Raygun.Format.conn_payload(conn, stacktrace, exception, opts) |> send_report
+    conn
+    |> Raygun.Format.conn_payload(stacktrace, exception, opts)
+    |> send_report()
   end
 
   defp send_report(error) do
-    headers = %{
-      "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
-      "User-Agent": "Elixir Client",
-      "X-ApiKey": Raygun.Util.get_env(:raygun, :api_key)
-    }
-    opts = Application.get_env(:raygun, :httpoison_opts, [])
-    case HTTPoison.post(@api_endpoint, Poison.encode!(error), headers, opts) do
-      { :ok, %HTTPoison.Response{status_code: 202} } -> :ok
-      { :ok, %HTTPoison.Response{status_code: 400} } -> {:error, :bad_message}
-      { :ok, %HTTPoison.Response{status_code: 403} } -> {:error, :invalid_api_key}
-      { :error, _}                                   -> {:error, :unexpected}
+    case HTTPoison.post(@api_endpoint, Jason.encode!(error), headers(), httpoison_opts()) do
+      {:ok, %HTTPoison.Response{status_code: 202}} -> :ok
+      {:ok, %HTTPoison.Response{status_code: 400}} -> {:error, :bad_message}
+      {:ok, %HTTPoison.Response{status_code: 403}} -> {:error, :invalid_api_key}
+      {:error, _} -> {:error, :unexpected}
     end
+  end
+
+  defp headers do
+    [
+      {"Content-Type", "application/json; charset=utf-8"},
+      {"Accept", "application/json"},
+      {"User-Agent", "Elixir Client"},
+      {"X-ApiKey", Raygun.Util.get_env(:raygun, :api_key)}
+    ]
+  end
+
+  defp httpoison_opts do
+    Application.get_env(:raygun, :httpoison_opts, [])
   end
 end
