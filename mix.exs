@@ -53,13 +53,13 @@ defmodule Raygun.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:poison, "~> 2.0 or ~> 1.0"},
-      {:httpoison, "~> 0.8"},
+      {:poison, "~> 3.0 or ~> 2.0 or ~> 1.0"},
+      {:httpoison, "~> 0.8 or ~> 1.0"},
       {:plug, "~> 1.1"},
-      {:earmark, "~> 0.2", only: :dev},
+      {:earmark, "~> 1.0", only: :dev},
       {:ex_doc, "~> 0.11", only: :dev},
       {:meck, "~> 0.8", only: :test},
-      {:excoveralls, "~> 0.5.4", only: :test}
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 
