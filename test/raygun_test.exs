@@ -8,7 +8,7 @@ defmodule RaygunTest do
 
   setup do
     new([HTTPoison, Poison])
-    on_exit(fn -> unload end)
+    on_exit(fn -> unload() end)
     :ok
   end
 
