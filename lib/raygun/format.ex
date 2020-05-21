@@ -17,10 +17,10 @@ defmodule Raygun.Format do
 
   def message_payload(msg, opts) do
     %{
-      occurredOn: now,
+      occurredOn: now(),
       details:
-        details
-        |> Map.merge(environment)
+        details()
+        |> Map.merge(environment())
         |> Map.merge(user(opts))
         |> Map.merge(custom(opts))
         |> Map.merge(%{error: %{message: msg}})
@@ -33,11 +33,11 @@ defmodule Raygun.Format do
   """
   def stacktrace_payload(stacktrace, exception, opts) do
     %{
-      occurredOn: now,
+      occurredOn: now(),
       details:
-        details
+        details()
         |> Map.merge(err(stacktrace, exception))
-        |> Map.merge(environment)
+        |> Map.merge(environment())
         |> Map.merge(user(opts))
         |> Map.merge(custom(opts))
     }
@@ -49,11 +49,11 @@ defmodule Raygun.Format do
   """
   def conn_payload(conn, stacktrace, exception, opts) do
     %{
-      occurredOn: now,
+      occurredOn: now(),
       details:
         details(opts)
         |> Map.merge(err(stacktrace, exception))
-        |> Map.merge(environment)
+        |> Map.merge(environment())
         |> Map.merge(request(conn))
         |> Map.merge(response(conn))
         |> Map.merge(user(opts))
