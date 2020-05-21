@@ -1,10 +1,14 @@
 defmodule Raygun.Logger do
-  use GenEvent
+  @behaviour :gen_event
 
   @moduledoc """
   This provides a backend for Logger that will send any messages logged at
   :error to Raygun.
   """
+
+  def init(args) do
+    {:ok, args}
+  end
 
   @doc """
   Our module doesn't require any custom configuration, so just return the state.
@@ -27,6 +31,18 @@ defmodule Raygun.Logger do
   end
 
   def handle_event(_data, state) do
+    {:ok, state}
+  end
+
+  def handle_info(_msg, state) do
+    {:ok, state}
+  end
+
+  def terminate(_reason, _state) do
+    :ok
+  end
+
+  def code_change(_old, state, _extra) do
     {:ok, state}
   end
 end
