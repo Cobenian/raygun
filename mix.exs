@@ -2,17 +2,19 @@ defmodule Raygun.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :raygun,
-     version: "0.3.2",
-     elixir: "~> 1.3",
-     source_url: "https://github.com/cobenian/raygun",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     description: description,
-     package: package,
-     test_coverage: [tool: ExCoveralls],
-     preferred_cli_env: preferred_cli_env,
-     deps: deps]
+    [
+      app: :raygun,
+      version: "0.3.2",
+      elixir: "~> 1.3",
+      source_url: "https://github.com/cobenian/raygun",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: preferred_cli_env(),
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
@@ -33,7 +35,7 @@ defmodule Raygun.Mixfile do
 
   defp preferred_cli_env do
     [
-      "coveralls": :test,
+      coveralls: :test,
       "coveralls.detail": :test,
       "coveralls.post": :test,
       "coveralls.html": :test
@@ -62,9 +64,11 @@ defmodule Raygun.Mixfile do
   end
 
   defp package do
-    [# These are the default files included in the package
-     maintainers: ["Bryan Weber"],
-     licenses: ["Apache 2.0"],
-     links: %{"GitHub" => "https://github.com/cobenian/raygun"}]
+    # These are the default files included in the package
+    [
+      maintainers: ["Bryan Weber"],
+      licenses: ["Apache 2.0"],
+      links: %{"GitHub" => "https://github.com/cobenian/raygun"}
+    ]
   end
 end
