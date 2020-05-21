@@ -19,14 +19,10 @@ defmodule Raygun do
     Raygun.Format.message_payload(msg, opts) |> send_report
   end
 
-  @doc """
-  Convenience function that captures the most recent stacktrace and reports it
-  along with the exception. NOTE: it is the responsiblity of the caller to
-  ensure that the most recent stacktrace is the one associated with the
-  exception.
-  """
+  @deprecated "Use report_stacktrace/2 instead"
   def report_exception(exception, opts \\ []) do
-    System.stacktrace() |> report_stacktrace(exception, opts)
+    apply(:erlang, :get_stacktrace, [])
+    |> report_stacktrace(exception, opts)
   end
 
   @doc """

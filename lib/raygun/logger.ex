@@ -22,7 +22,7 @@ defmodule Raygun.Logger do
   """
   def handle_event({:error, gl, {Logger, msg, _ts, _md}}, state) when node(gl) == node() do
     if Exception.exception?(msg) do
-      Raygun.report_exception(msg)
+      Raygun.report_stacktrace(msg, apply(:erlang, :get_stacktrace, []))
     else
       Raygun.report_message(msg)
     end
