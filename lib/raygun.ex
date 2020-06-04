@@ -19,14 +19,10 @@ defmodule Raygun do
     Raygun.Format.message_payload(msg, opts) |> send_report
   end
 
-  @doc """
-  Convenience function that captures the most recent stacktrace and reports it
-  along with the exception. NOTE: it is the responsiblity of the caller to
-  ensure that the most recent stacktrace is the one associated with the
-  exception.
-  """
+  @deprecated "Use report_stacktrace/2 instead"
   def report_exception(exception, opts \\ []) do
-    System.stacktrace |> report_stacktrace(exception, opts)
+    apply(:erlang, :get_stacktrace, [])
+    |> report_stacktrace(exception, opts)
   end
 
   @doc """
@@ -48,16 +44,18 @@ defmodule Raygun do
   defp send_report(error) do
     headers = %{
       "Content-Type": "application/json; charset=utf-8",
-      "Accept": "application/json",
+      Accept: "application/json",
       "User-Agent": "Elixir Client",
       "X-ApiKey": Raygun.Util.get_env(:raygun, :api_key)
     }
+
     opts = Application.get_env(:raygun, :httpoison_opts, [])
+
     case HTTPoison.post(@api_endpoint, Poison.encode!(error), headers, opts) do
-      { :ok, %HTTPoison.Response{status_code: 202} } -> :ok
-      { :ok, %HTTPoison.Response{status_code: 400} } -> {:error, :bad_message}
-      { :ok, %HTTPoison.Response{status_code: 403} } -> {:error, :invalid_api_key}
-      { :error, _}                                   -> {:error, :unexpected}
+      {:ok, %HTTPoison.Response{status_code: 202}} -> :ok
+      {:ok, %HTTPoison.Response{status_code: 400}} -> {:error, :bad_message}
+      {:ok, %HTTPoison.Response{status_code: 403}} -> {:error, :invalid_api_key}
+      {:error, _} -> {:error, :unexpected}
     end
   end
 end
