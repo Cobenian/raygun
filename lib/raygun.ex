@@ -51,7 +51,7 @@ defmodule Raygun do
 
     opts = Application.get_env(:raygun, :httpoison_opts, [])
 
-    case HTTPoison.post(@api_endpoint, Poison.encode!(error), headers, opts) do
+    case HTTPoison.post(@api_endpoint, Jason.encode!(error), headers, opts) do
       {:ok, %HTTPoison.Response{status_code: 202}} -> :ok
       {:ok, %HTTPoison.Response{status_code: 400}} -> {:error, :bad_message}
       {:ok, %HTTPoison.Response{status_code: 403}} -> {:error, :invalid_api_key}

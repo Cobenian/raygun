@@ -4,7 +4,7 @@ defmodule Raygun.Mixfile do
   def project do
     [
       app: :raygun,
-      version: "0.3.2",
+      version: "0.4.0",
       elixir: "~> 1.3",
       source_url: "https://github.com/cobenian/raygun",
       build_embedded: Mix.env() == :prod,
@@ -53,7 +53,7 @@ defmodule Raygun.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:poison, "~> 3.0 or ~> 2.0 or ~> 1.0"},
+      {:jason, "~> 1.2"},
       {:httpoison, "~> 0.8 or ~> 1.0"},
       {:plug, "~> 1.1"},
       {:earmark, "~> 1.0", only: :dev},
